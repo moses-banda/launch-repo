@@ -15,27 +15,27 @@ interface Confession {
 
 const confessions: Confession[] = [
   {
-    text: "I reached out to three recruiters.\nThey saw my messages...\nBut no one replied.\nMy big interview is tomorrow and I have no one to ask for advice.",
+    text: "I reached out to three recruiters. They saw my messages... But no one replied. My big interview is tomorrow and I have no one to ask for advice.",
     tagline: "Professional silence shouldn't be your dead end.",
     userName: "Simba"
   },
   {
-    text: "I practiced for two solid weeks.\nBut they asked me the one thing I wasn't ready for.\nI froze.\nI had to say 'I don't know' three times in a row.",
+    text: "I practiced for two solid weeks. But they asked me the one thing I wasn't ready for. I froze. I had to say 'I don't know' three times in a row.",
     tagline: "Career support should never punch out at 4 PM.",
     userName: "Mufasa"
   },
   {
-    text: "My manager said I wasn't 'ready' for the promotion.\nBut they never told me what 'ready' actually looks like.\nI'm working in the dark,\nNot knowing what to improve.",
+    text: "My manager said I wasn't 'ready' for the promotion. But they never told me what 'ready' actually looks like. I'm working in the dark, Not knowing what to improve.",
     tagline: "Navigating your growth shouldn't be a solo journey.",
     userName: "Nala"
   },
   {
-    text: "I finally got the job offer!\nBut the salary is much lower than I expected.\nI'm terrified to negotiate...\nWhat if they take the offer back?",
+    text: "I finally got the job offer! But the salary is much lower than I expected. I'm terrified to negotiate... What if they take the offer back?",
     tagline: "Expert guidance matters when your future is on the line.",
     userName: "Rafiki"
   },
   {
-    text: "Everyone here seems so confident and capable.\nI'm just over here pretending I know what I'm doing.\nEvery morning I wonder:\n'Is today the day they find out I don't belong?'",
+    text: "Everyone here seems so confident and capable. I'm just over here pretending I know what I'm doing. Every morning I wonder: 'Is today the day they find out I don't belong?'",
     tagline: "Imposter syndrome is loudest when you're alone.",
     userName: "Timon"
   }
@@ -147,7 +147,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
 
       {/* Sticky Note - Nominate Link (Top Right - Yellow Flashcard) */}
       <motion.div
-        className="absolute top-22 right-2 md:top-24 md:right-8 lg:right-12 w-28 h-36 md:w-32 md:h-44 lg:w-36 lg:h-48 bg-[#ffd700] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-2 pointer-events-auto"
+        className="absolute top-28 right-4 md:top-24 md:right-12 lg:right-16 w-28 h-36 md:w-32 md:h-44 lg:w-36 lg:h-48 bg-[#ffd700] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-2 pointer-events-auto"
         onClick={() => onNavigate('nomination')}
         style={{
           fontFamily: "'Caveat', cursive",
@@ -466,9 +466,9 @@ function PageContent({
           </p>
         </motion.div>
 
-        <div className="relative w-full text-left pl-4 md:pl-0">
+        <div className="relative w-full text-justify max-w-2xl px-6 md:px-0 mx-auto">
           <p
-            className="text-xl md:text-2xl lg:text-3xl leading-loose whitespace-pre-line font-light"
+            className="text-xl md:text-2xl lg:text-3xl leading-loose font-light"
             style={{
               fontFamily: "'Caveat', cursive",
               color: '#4a4a4a',
