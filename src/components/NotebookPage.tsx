@@ -147,7 +147,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
 
       {/* Sticky Note - Nominate Link (Top Right - Yellow Flashcard) */}
       <motion.div
-        className="absolute top-20 right-3 md:top-24 md:right-12 lg:right-20 w-28 h-36 md:w-32 md:h-44 lg:w-36 lg:h-48 bg-[#ffd700] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-2 pointer-events-auto"
+        className="absolute top-22 right-2 md:top-24 md:right-8 lg:right-12 w-28 h-36 md:w-32 md:h-44 lg:w-36 lg:h-48 bg-[#ffd700] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-2 pointer-events-auto"
         onClick={() => onNavigate('nomination')}
         style={{
           fontFamily: "'Caveat', cursive",
