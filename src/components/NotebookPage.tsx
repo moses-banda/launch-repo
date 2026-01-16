@@ -144,26 +144,26 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </div>
       </div>
 
-      {/* Sticky Note - Nominate Link (Top Right) */}
+      {/* Sticky Note - Nominate Link (Top Right - Yellow Flashcard) */}
       <motion.div
-        className="absolute top-24 right-4 md:top-28 md:right-16 lg:right-24 w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 bg-[#d4a574] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
+        className="absolute top-20 right-3 md:top-24 md:right-12 lg:right-20 w-28 h-36 md:w-32 md:h-44 lg:w-36 lg:h-48 bg-[#ffd700] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-2 pointer-events-auto"
         onClick={() => onNavigate('nomination')}
         style={{
           fontFamily: "'Caveat', cursive",
-          boxShadow: '5px 5px 15px rgba(0,0,0,0.25)'
+          boxShadow: '4px 4px 12px rgba(0,0,0,0.3)'
         }}
-        whileHover={{ scale: 1.08, rotate: 6 }}
-        initial={{ y: -10, opacity: 0 }}
+        whileHover={{ scale: 1.08, rotate: 5 }}
+        initial={{ y: -15, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.6 }}
       >
         {/* Tape Effect */}
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 md:w-14 h-3 md:h-4 bg-white/50 rotate-1 backdrop-blur-sm shadow-sm" />
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-10 md:w-12 h-3 md:h-4 bg-white/60 rotate-1 shadow-sm" />
 
-        <p className="text-xs md:text-sm lg:text-base leading-tight font-medium text-[#4a3728]">
+        <p className="text-xs md:text-sm lg:text-base leading-tight font-semibold text-[#5a4a00]">
           Nominate a Vandy Student!
         </p>
-        <div className="mt-1 text-[#4a3728] text-xs animate-pulse">
+        <div className="mt-2 text-[#5a4a00] text-xs animate-pulse">
           Click ➜
         </div>
       </motion.div>
@@ -185,11 +185,12 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           />
           <div className="flex flex-col">
             <p
-              className="text-sm md:text-base tracking-widest opacity-90"
+              className="text-sm md:text-base tracking-widest"
               style={{
                 fontFamily: 'Georgia, serif',
                 color: '#2d2d2d',
-                letterSpacing: '0.2em'
+                letterSpacing: '0.2em',
+                fontWeight: 600
               }}
             >
               Erocras

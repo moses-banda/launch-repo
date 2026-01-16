@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Facebook, Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 
 interface NominationPageProps {
@@ -15,7 +15,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
     const handleSubmit = () => {
         if (nomineeName.trim()) {
             console.log('Nomination Submitted:', { nomineeName, nomineeEmail, reason });
-            onNavigate('home'); // Navigate back to main page
+            onNavigate('home');
         }
     };
 
@@ -24,7 +24,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
             {/* Left book spine shadow */}
             <div className="absolute left-0 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-[#5a4334] to-transparent z-20 pointer-events-none" />
 
-            {/* Static Background Frame - Same as NotebookPage */}
+            {/* Static Background Frame */}
             <div
                 className="absolute inset-0 z-0 pointer-events-none"
                 style={{
@@ -50,6 +50,46 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                 </div>
                 {/* Margin Line */}
                 <div className="absolute left-16 md:left-20 top-0 bottom-0 w-px bg-[#f4a6a6]/25" />
+
+                {/* Footer */}
+                <div className="absolute bottom-4 md:bottom-12 left-0 right-0 px-4 md:px-16 pl-[4.5rem] md:pl-32">
+                    <div className="max-w-2xl mx-auto text-center">
+                        <div className="border-t border-[#d4e4f7]/30 pt-4 md:pt-6">
+                            <p
+                                className="text-sm md:text-base opacity-50 mb-4 md:mb-6"
+                                style={{
+                                    fontFamily: "'Caveat', cursive",
+                                    color: '#4a4a4a',
+                                    lineHeight: '1.6'
+                                }}
+                            >
+                                You are not alone in your career journey.
+                            </p>
+
+                            <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4 pointer-events-auto">
+                                <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
+                                    <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                                </motion.a>
+                                <motion.a href="https://twitter.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Twitter">
+                                    <Twitter className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                                </motion.a>
+                                <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
+                                    <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                                </motion.a>
+                                <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
+                                    <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                                </motion.a>
+                                <motion.a href="mailto:contact@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
+                                    <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                                </motion.a>
+                            </div>
+
+                            <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
+                                © 2025 Erocras
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* Header with Logo and Back Button */}
@@ -63,11 +103,12 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                         animate={{ opacity: 1, scale: 1 }}
                     />
                     <p
-                        className="text-sm md:text-base tracking-widest opacity-90"
+                        className="text-sm md:text-base tracking-widest"
                         style={{
                             fontFamily: 'Georgia, serif',
                             color: '#2d2d2d',
-                            letterSpacing: '0.2em'
+                            letterSpacing: '0.2em',
+                            fontWeight: 600
                         }}
                     >
                         Erocras
@@ -77,13 +118,13 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                 {/* Back Button */}
                 <motion.button
                     onClick={() => onNavigate('home')}
-                    whileHover={{ scale: 1.1, x: -5 }}
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="absolute top-6 right-6 md:right-12 flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity pointer-events-auto px-4 py-2 rounded-full bg-white/50 hover:bg-white/80"
+                    className="absolute top-6 right-6 md:right-12 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity pointer-events-auto px-4 py-2 rounded-full bg-white/60 hover:bg-white/90 shadow-md"
                     style={{ fontFamily: "'Caveat', cursive" }}
                 >
                     <ArrowLeft className="w-5 h-5 text-[#4a4a4a]" />
-                    <span className="text-[#4a4a4a] text-lg">Back</span>
+                    <span className="text-[#4a4a4a] text-lg font-medium">Back</span>
                 </motion.button>
             </div>
 

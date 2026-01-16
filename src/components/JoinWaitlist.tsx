@@ -222,11 +222,12 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
           />
           <div className="flex flex-col">
             <p
-              className="text-sm md:text-base tracking-widest opacity-90"
+              className="text-sm md:text-base tracking-widest"
               style={{
                 fontFamily: 'Georgia, serif',
                 color: '#2d2d2d',
-                letterSpacing: '0.2em'
+                letterSpacing: '0.2em',
+                fontWeight: 600
               }}
             >
               Erocras
