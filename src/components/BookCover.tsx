@@ -93,7 +93,7 @@ export function BookCover({ isFlipping }: BookCoverProps) {
               <div className="mt-8 flex flex-col items-center gap-4">
                 <div className="w-20 h-px bg-[#d4af37]/50" />
                 <p className="text-xl md:text-2xl uppercase tracking-[0.4em] text-[#f4e8d0] opacity-80 text-center">
-                  The 419for Careers
+                  The 911 for Careers
                 </p>
                 <div className="w-20 h-px bg-[#d4af37]/50" />
               </div>

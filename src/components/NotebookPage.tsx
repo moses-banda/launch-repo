@@ -5,6 +5,7 @@ import { ScribbledButton } from './ScribbledButton';
 import { animate } from 'animejs';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 import profileIcon from 'figma:asset/8e273ee48e90346d297e8cee71c2504f5f00a434.png';
+import { NominationPage } from './NominationPage';
 
 interface Confession {
   text: string;
@@ -43,6 +44,7 @@ const confessions: Confession[] = [
 export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'waitlist' | 'partners') => void }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showNominationModal, setShowNominationModal] = useState(false);
 
   const triggerTransition = (direction: 'next' | 'prev') => {
     if (isTransitioning) return;
@@ -119,30 +121,62 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
               </p>
 
               <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4 pointer-events-auto">
-                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
+                <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
                   <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
                 </motion.a>
-                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Twitter">
+                <motion.a href="https://twitter.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Twitter">
                   <Twitter className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
                 </motion.a>
-                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
+                <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
                   <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
                 </motion.a>
-                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
+                <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
                   <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
                 </motion.a>
-                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
+                <motion.a href="mailto:contact@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
                   <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
                 </motion.a>
               </div>
 
               <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
-                © 2025 ErocraS
+                © 2025 Erocras
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Sticky Note - Nominate Link */}
+      <motion.div
+        className="absolute top-24 right-4 md:right-8 md:top-28 w-56 h-56 bg-[#fff04b] p-6 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
+        onClick={() => setShowNominationModal(true)}
+        style={{
+          fontFamily: "'Caveat', cursive",
+          boxShadow: '5px 5px 15px rgba(0,0,0,0.2)'
+        }}
+        whileHover={{ scale: 1.05, rotate: 5 }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1, duration: 0.8 }}
+      >
+        {/* Tape Effect */}
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-white/40 rotate-1 backdrop-blur-sm shadow-sm" />
+
+        <p className="text-xl leading-tight font-bold text-[#b91c1c]">
+          Nominate a Vanderbilt Student to be the voice of your experience.
+        </p>
+        <div className="mt-2 text-[#b91c1c] animate-pulse">
+          ➜
+        </div>
+      </motion.div>
+
+      {/* Nomination Modal */}
+      <AnimatePresence>
+        {showNominationModal && (
+          <NominationPage onBack={() => setShowNominationModal(false)} />
+        )}
+      </AnimatePresence>
+
 
       {/* Header Section */}
       <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
@@ -151,7 +185,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         <div className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0">
           <motion.img
             src={logo}
-            alt="ErocraS Logo"
+            alt="Erocras Logo"
             className="w-8 h-8 md:w-10 md:h-10 object-contain"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -242,7 +276,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="w-full max-w-2xl mx-auto flex flex-col items-center pointer-events-auto"
+            className="w-full max-w-5xl mx-auto flex flex-col items-center pointer-events-auto"
           >
             <PageContent
               confession={confessions[currentIndex]}
@@ -383,7 +417,7 @@ function PageContent({
         )}
       </AnimatePresence>
 
-      <div className="w-full max-w-2xl mx-auto flex flex-col items-center">
+      <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -406,7 +440,7 @@ function PageContent({
           </p>
         </motion.div>
 
-        <div className="relative w-full max-w-lg mx-auto text-left pl-4 md:pl-0">
+        <div className="relative w-full text-left pl-4 md:pl-0">
           <p
             className="text-xl md:text-2xl lg:text-3xl leading-loose whitespace-pre-line"
             style={{
