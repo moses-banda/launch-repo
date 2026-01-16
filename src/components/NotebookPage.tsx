@@ -466,7 +466,7 @@ function PageContent({
           </p>
         </motion.div>
 
-        <div className="relative w-full text-justify max-w-xl px-8 mx-auto mt-12 md:mt-16">
+        <div className="relative w-full text-justify max-w-5xl mx-auto mt-12 md:mt-16 pl-20 pr-6 md:px-32">
           <p
             className="text-xl md:text-2xl lg:text-3xl leading-loose font-light"
             style={{
