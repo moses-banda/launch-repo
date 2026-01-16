@@ -4,8 +4,9 @@ import { BookCover } from './components/BookCover';
 import { NotebookPage } from './components/NotebookPage';
 import { JoinWaitlist } from './components/JoinWaitlist';
 import { Partners } from './components/Partners';
+import { NominationPage } from './components/NominationPage';
 
-type Page = 'home' | 'waitlist' | 'partners';
+type Page = 'home' | 'waitlist' | 'partners' | 'nomination';
 
 export default function App() {
   const [showCover, setShowCover] = useState(true);
@@ -54,6 +55,7 @@ export default function App() {
             {currentPage === 'home' && <NotebookPage onNavigate={navigateToPage} />}
             {currentPage === 'waitlist' && <JoinWaitlist onNavigate={navigateToPage} />}
             {currentPage === 'partners' && <Partners onNavigate={navigateToPage} />}
+            {currentPage === 'nomination' && <NominationPage onNavigate={navigateToPage} />}
           </motion.div>
         )}
       </AnimatePresence>

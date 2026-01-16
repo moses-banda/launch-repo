@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 
 interface NominationPageProps {
-    onBack: () => void;
+    onNavigate: (page: 'home' | 'waitlist' | 'partners' | 'nomination') => void;
 }
 
-export function NominationPage({ onBack }: NominationPageProps) {
+export function NominationPage({ onNavigate }: NominationPageProps) {
     const [nomineeName, setNomineeName] = useState('');
     const [nomineeEmail, setNomineeEmail] = useState('');
     const [reason, setReason] = useState('');
@@ -15,7 +15,7 @@ export function NominationPage({ onBack }: NominationPageProps) {
     const handleSubmit = () => {
         if (nomineeName.trim()) {
             console.log('Nomination Submitted:', { nomineeName, nomineeEmail, reason });
-            onBack(); // Transition back to main page
+            onNavigate('home'); // Navigate back to main page
         }
     };
 
@@ -52,7 +52,7 @@ export function NominationPage({ onBack }: NominationPageProps) {
                 <div className="absolute left-16 md:left-20 top-0 bottom-0 w-px bg-[#f4a6a6]/25" />
             </div>
 
-            {/* Header with Logo and Close */}
+            {/* Header with Logo and Back Button */}
             <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
                 <div className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0">
                     <motion.img
@@ -74,14 +74,16 @@ export function NominationPage({ onBack }: NominationPageProps) {
                     </p>
                 </div>
 
-                {/* Close/Back Button */}
+                {/* Back Button */}
                 <motion.button
-                    onClick={onBack}
-                    whileHover={{ scale: 1.2 }}
+                    onClick={() => onNavigate('home')}
+                    whileHover={{ scale: 1.1, x: -5 }}
                     whileTap={{ scale: 0.9 }}
-                    className="absolute top-6 right-6 md:right-12 opacity-50 hover:opacity-100 transition-opacity pointer-events-auto"
+                    className="absolute top-6 right-6 md:right-12 flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity pointer-events-auto px-4 py-2 rounded-full bg-white/50 hover:bg-white/80"
+                    style={{ fontFamily: "'Caveat', cursive" }}
                 >
-                    <X className="w-8 h-8 text-[#4a4a4a]" />
+                    <ArrowLeft className="w-5 h-5 text-[#4a4a4a]" />
+                    <span className="text-[#4a4a4a] text-lg">Back</span>
                 </motion.button>
             </div>
 

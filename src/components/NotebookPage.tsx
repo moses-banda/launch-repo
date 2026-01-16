@@ -5,7 +5,6 @@ import { ScribbledButton } from './ScribbledButton';
 import { animate } from 'animejs';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 import profileIcon from 'figma:asset/8e273ee48e90346d297e8cee71c2504f5f00a434.png';
-import { NominationPage } from './NominationPage';
 
 interface Confession {
   text: string;
@@ -41,10 +40,9 @@ const confessions: Confession[] = [
   }
 ];
 
-export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'waitlist' | 'partners') => void }) {
+export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'waitlist' | 'partners' | 'nomination') => void }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showNominationModal, setShowNominationModal] = useState(false);
 
   const triggerTransition = (direction: 'next' | 'prev') => {
     if (isTransitioning) return;
@@ -149,7 +147,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
       {/* Sticky Note - Nominate Link (Top Right) */}
       <motion.div
         className="absolute top-24 right-4 md:top-28 md:right-16 lg:right-24 w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 bg-[#d4a574] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
-        onClick={() => setShowNominationModal(true)}
+        onClick={() => onNavigate('nomination')}
         style={{
           fontFamily: "'Caveat', cursive",
           boxShadow: '5px 5px 15px rgba(0,0,0,0.25)'
@@ -170,12 +168,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </div>
       </motion.div>
 
-      {/* Nomination Modal */}
-      <AnimatePresence>
-        {showNominationModal && (
-          <NominationPage onBack={() => setShowNominationModal(false)} />
-        )}
-      </AnimatePresence>
+
 
 
       {/* Header Section */}
