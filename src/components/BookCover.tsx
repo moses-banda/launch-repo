@@ -88,12 +88,12 @@ export function BookCover({ isFlipping }: BookCoverProps) {
                   filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'
                 }}
               >
-                ErocraS
+                Erocras
               </h1>
               <div className="mt-8 flex flex-col items-center gap-4">
                 <div className="w-20 h-px bg-[#d4af37]/50" />
                 <p className="text-xl md:text-2xl uppercase tracking-[0.4em] text-[#f4e8d0] opacity-80 text-center">
-                  911 for Careers
+                  The 419for Careers
                 </p>
                 <div className="w-20 h-px bg-[#d4af37]/50" />
               </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, PanInfo } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Facebook, Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
 import { ScribbledButton } from './ScribbledButton';
 import { animate } from 'animejs';
@@ -42,25 +42,11 @@ const confessions: Confession[] = [
 
 export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'waitlist' | 'partners') => void }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false);
-  const [nextIndex, setNextIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Handle Swipe/Drag to Flip
-  const handleDragEnd = (_: any, info: PanInfo) => {
-    if (isFlipping) return;
-
-    const threshold = 50;
-    if (info.offset.x < -threshold) {
-      // Swipe Left -> Next
-      triggerFlip('next');
-    } else if (info.offset.x > threshold) {
-      // Swipe Right -> Prev
-      triggerFlip('prev');
-    }
-  };
-
-  const triggerFlip = (direction: 'next' | 'prev') => {
-    setIsFlipping(true);
+  const triggerTransition = (direction: 'next' | 'prev') => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
 
     let targetIndex;
     if (direction === 'next') {
@@ -69,92 +55,221 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
       targetIndex = (currentIndex - 1 + confessions.length) % confessions.length;
     }
 
-    setNextIndex(targetIndex);
-
-    // Slower flip duration
     setTimeout(() => {
       setCurrentIndex(targetIndex);
-      setIsFlipping(false);
-    }, 2200);
+      setIsTransitioning(false);
+    }, 600); // 600ms transition time
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-[#2a2420] overflow-hidden" style={{ perspective: '2000px' }}>
+    <div className="w-full h-screen flex items-center justify-center bg-[#2a2420] overflow-hidden">
       <div className="absolute left-0 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-[#5a4334] to-transparent z-20 pointer-events-none" />
 
-      <div className="absolute top-6 md:top-8 right-6 md:right-12 z-30 flex gap-3 md:gap-4">
-        <ScribbledButton text="Join Waitlist" onClick={() => onNavigate('waitlist')} />
-        <ScribbledButton text="Our Partners" onClick={() => onNavigate('partners')} />
-      </div>
-
-      {/* Main Draggable Container for Interaction */}
-      <motion.div
-        className="relative w-full h-full cursor-grab active:cursor-grabbing"
-        style={{ transformStyle: 'preserve-3d' }}
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.1}
-        onDragEnd={handleDragEnd}
+      {/* Static Background Frame */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, #faf8f3 0%, #f5f1e8 100%)',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 0 40px rgba(0,0,0,0.03)'
+        }}
       >
-        {/* Bottom Page (Always visible waiting underneath) */}
+        <div
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 600\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'2.5\' numOctaves=\'3\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")',
+          }}
+        />
+        {/* Notebook Lines */}
         <div className="absolute inset-0">
-          <PageContent
-            confession={confessions[nextIndex]}
-            key={`next-${nextIndex}`}
-            isCurrent={false}
-            isAnimating={false}
+          {Array.from({ length: 40 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute left-0 right-0 h-px bg-[#d4e4f7]/30"
+              style={{ top: `${(i + 1) * 2.5}%` }}
+            />
+          ))}
+        </div>
+        {/* Margin Line */}
+        <div className="absolute left-16 md:left-20 top-0 bottom-0 w-px bg-[#f4a6a6]/25" />
+
+        {/* Ribbon Bookmark */}
+        <div className="absolute top-0 right-20 md:right-32 w-8 md:w-10 h-32 md:h-40 z-20">
+          <div
+            className="w-full h-full bg-[#8b0000] shadow-[2px_5px_10px_rgba(0,0,0,0.3)] rounded-b-sm"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)',
+              background: 'linear-gradient(to right, #8b0000, #b22222, #8b0000)'
+            }}
           />
         </div>
 
-        {/* Top Flipping Page */}
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            transformStyle: 'preserve-3d',
-            transformOrigin: 'left center',
-            backfaceVisibility: 'hidden',
-          }}
-          animate={isFlipping ? {
-            rotateY: -180,
-            scale: 0.98,
-            x: '2%',
-          } : {
-            rotateY: 0,
-            scale: 1,
-            x: '0%',
-          }}
-          transition={{
-            duration: 2.2,
-            ease: [0.645, 0.045, 0.355, 1.000] // Cubic Bezier for smooth, classy flip
-          }}
-        >
-          {/* Current Content */}
-          <PageContent
-            confession={confessions[currentIndex]}
-            key={`current-${currentIndex}`}
-            isCurrent={!isFlipping}
-            isAnimating={true}
-          />
+        {/* Static Footer (moved here to stay permanent) */}
+        <div className="absolute bottom-4 md:bottom-12 left-0 right-0 px-4 md:px-16 pl-[4.5rem] md:pl-32">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="border-t border-[#d4e4f7]/30 pt-4 md:pt-6">
+              <p
+                className="text-sm md:text-base opacity-50 mb-4 md:mb-6"
+                style={{
+                  fontFamily: "'Caveat', cursive",
+                  color: '#4a4a4a',
+                  lineHeight: '1.6'
+                }}
+              >
+                You are not alone in your career journey.
+              </p>
 
-          {/* Shadow Overlay during flip for depth */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
+              <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4 pointer-events-auto">
+                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
+                  <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                </motion.a>
+                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Twitter">
+                  <Twitter className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                </motion.a>
+                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
+                  <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                </motion.a>
+                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
+                  <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                </motion.a>
+                <motion.a href="#" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
+                  <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+                </motion.a>
+              </div>
+
+              <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
+                © 2025 ErocraS
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Header Section */}
+      <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
+
+        {/* Brand (Top Left) */}
+        <div className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0">
+          <motion.img
+            src={logo}
+            alt="ErocraS Logo"
+            className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+          />
+          <div className="flex flex-col">
+            <p
+              className="text-sm md:text-base tracking-widest opacity-90"
+              style={{
+                fontFamily: 'Georgia, serif',
+                color: '#2d2d2d',
+                letterSpacing: '0.2em'
+              }}
+            >
+              Erocras
+            </p>
+          </div>
+        </div>
+
+        {/* Date (Top Right - visible on all screens) */}
+        <div className="absolute top-7 right-6 md:right-12 pointer-events-auto pr-4 md:pr-0">
+          <motion.p
+            className="text-lg md:text-xl whitespace-nowrap text-right"
             style={{
-              background: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 100%)',
-              transformOrigin: 'left center',
+              fontFamily: "'Caveat', cursive",
+              color: '#daa520', // Goldenrod
+              fontWeight: 700,
+              transform: 'rotate(-2deg)'
             }}
-            animate={isFlipping ? {
-              opacity: [0, 0.6, 0],
-            } : {
-              opacity: 0,
+            animate={{
+              textShadow: [
+                "0 0 4px #ffd700",
+                "0 0 12px #ffeda0",
+                "0 0 4px #ffd700"
+              ],
+              scale: [1, 1.02, 1]
             }}
             transition={{
-              duration: 2.2,
-              ease: [0.645, 0.045, 0.355, 1.000]
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
-          />
-        </motion.div>
-      </motion.div>
+          >
+            Coming Soon on<br />20th August 2026
+          </motion.p>
+        </div>
+
+        {/* Buttons (Desktop: Top Right next to date, Mobile: Below header) */}
+        <div className="absolute md:top-6 md:right-48 right-0 left-0 top-20 flex md:justify-end justify-center pointer-events-auto md:pr-4">
+          <div className="flex gap-2 md:gap-4 scale-90 md:scale-100">
+            <motion.div
+              animate={{
+                rotate: [0, 3, -3, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 2,
+                ease: "easeInOut"
+              }}
+            >
+              <ScribbledButton text="Join Waitlist" onClick={() => onNavigate('waitlist')} />
+            </motion.div>
+            <motion.div
+              animate={{
+                rotate: [0, -3, 3, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 2.5,
+                ease: "easeInOut",
+                delay: 0.5
+              }}
+            >
+              <ScribbledButton text="Our Partners" onClick={() => onNavigate('partners')} />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area - Center Aligned with Margin Constraint */}
+      <div className="absolute inset-0 flex flex-col justify-center py-24 md:py-32 pl-24 pr-8 md:pl-32 md:pr-16 text-center z-10 pointer-events-none">
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="w-full max-w-2xl mx-auto flex flex-col items-center pointer-events-auto"
+          >
+            <PageContent
+              confession={confessions[currentIndex]}
+              isCurrent={true}
+              isAnimating={true}
+            />
+          </motion.div>
+        </AnimatePresence>
+
+      </div>
+
+      {/* Interaction Surface for Swipe */}
+      <div
+        className="absolute inset-0 z-20 cursor-grab active:cursor-grabbing"
+        onPointerDown={(e) => {
+          const startX = e.clientX;
+          const handlePointerUp = (upEvent: PointerEvent) => {
+            const diff = startX - upEvent.clientX;
+            if (Math.abs(diff) > 50) {
+              if (diff > 0) triggerTransition('next');
+              else triggerTransition('prev');
+            }
+            window.removeEventListener('pointerup', handlePointerUp);
+          };
+          window.addEventListener('pointerup', handlePointerUp);
+        }}
+      />
     </div>
   );
 }
@@ -177,12 +292,7 @@ function PageContent({
   const [quillTarget, setQuillTarget] = useState<'text' | 'tagline' | null>(null);
 
   useEffect(() => {
-    // If not the active top page, just show full text immediately (for background)
-    if (!isCurrent) {
-      setDisplayedText(confession.text);
-      setDisplayedTagline(confession.tagline);
-      return;
-    }
+    if (!isCurrent) return;
 
     setDisplayedText('');
     setDisplayedTagline('');
@@ -243,58 +353,10 @@ function PageContent({
   }, [showTagline, confession.tagline, isCurrent]);
 
   return (
-    <div
-      className="w-full h-full relative shadow-2xl overflow-hidden"
-      style={{
-        background: 'linear-gradient(to bottom, #faf8f3 0%, #f5f1e8 100%)',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 0 40px rgba(0,0,0,0.03)'
-      }}
-    >
-      <div
-        className="absolute inset-0 opacity-[0.15] pointer-events-none"
-        style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 600\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'2.5\' numOctaves=\'3\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")',
-        }}
-      />
-
-      {/* Notebook Lines */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 40 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute left-0 right-0 h-px bg-[#d4e4f7]/30"
-            style={{ top: `${(i + 1) * 2.5}%` }}
-          />
-        ))}
-      </div>
-
-      {/* Margin Line (Desktop: 5rem/80px/left-20, Mobile: 4rem/left-16) */}
-      <div className="absolute left-16 md:left-20 top-0 bottom-0 w-px bg-[#f4a6a6]/25" />
-
-      {/* Logo Header */}
-      <div className="absolute top-6 md:top-8 left-20 md:left-24 right-8 flex items-center gap-2">
-        <motion.img
-          src={logo}
-          alt="ErocraS Logo"
-          className="w-8 h-8 md:w-10 md:h-10 object-contain"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-        />
-        <p
-          className="text-sm md:text-base tracking-widest opacity-80"
-          style={{
-            fontFamily: 'Georgia, serif',
-            color: '#2d2d2d',
-            letterSpacing: '0.2em'
-          }}
-        >
-          ErocraS
-        </p>
-      </div>
-
+    <div className="w-full relative">
       {/* Feather Quill / Pen */}
       <AnimatePresence>
-        {isCurrent && quillTarget && isAnimating && (
+        {quillTarget && isAnimating && (
           <motion.div
             ref={quillRef}
             initial={{ opacity: 0 }}
@@ -321,119 +383,59 @@ function PageContent({
         )}
       </AnimatePresence>
 
-      {/* Ribbon Bookmark */}
-      <div className="absolute top-0 right-20 md:right-32 w-8 md:w-10 h-32 md:h-40 z-20 pointer-events-none">
-        <div
-          className="w-full h-full bg-[#8b0000] shadow-[2px_5px_10px_rgba(0,0,0,0.3)] rounded-b-sm"
-          style={{
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)',
-            background: 'linear-gradient(to right, #8b0000, #b22222, #8b0000)'
-          }}
-        />
-      </div>
-
-      {/* Main Content Area - Center Aligned with Margin Constraint */}
-      <div className="absolute inset-0 flex flex-col justify-center py-24 md:py-32 pl-24 pr-8 md:pl-32 md:pr-16 text-center">
-        <div className="w-full max-w-2xl mx-auto flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 mb-6 md:mb-8"
+      <div className="w-full max-w-2xl mx-auto flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex items-center gap-3 mb-6 md:mb-8"
+        >
+          <img
+            src={profileIcon}
+            alt={confession.userName}
+            className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-[#d4e4f7]/40"
+          />
+          <p
+            className="text-base md:text-lg opacity-60"
+            style={{
+              fontFamily: "'Caveat', cursive",
+              color: '#5a5a5a',
+              fontWeight: 600,
+            }}
           >
-            <img
-              src={profileIcon}
-              alt={confession.userName}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-[#d4e4f7]/40"
-            />
-            <p
-              className="text-base md:text-lg opacity-60"
-              style={{
-                fontFamily: "'Caveat', cursive",
-                color: '#5a5a5a',
-                fontWeight: 600,
-              }}
-            >
-              {confession.userName}
-            </p>
-          </motion.div>
+            {confession.userName}
+          </p>
+        </motion.div>
 
-          <div className="relative">
-            <p
-              className="text-xl md:text-2xl lg:text-3xl leading-relaxed whitespace-pre-line"
-              style={{
-                fontFamily: "'Caveat', cursive",
-                color: '#2d2d2d',
-                lineHeight: '1.8'
-              }}
-            >
-              {displayedText}
-              <span ref={textEndRef} />
-            </p>
-          </div>
+        <div className="relative w-full max-w-lg mx-auto text-left pl-4 md:pl-0">
+          <p
+            className="text-xl md:text-2xl lg:text-3xl leading-loose whitespace-pre-line"
+            style={{
+              fontFamily: "'Caveat', cursive",
+              color: '#2d2d2d',
+              lineHeight: '2.2' // Increased line height for airy, pro look
+            }}
+          >
+            {displayedText}
+            <span ref={textEndRef} />
+          </p>
         </div>
       </div>
 
-      <div className="absolute bottom-8 md:bottom-12 left-0 right-0 px-8 md:px-16 pl-24 md:pl-32">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="h-20 mb-6 md:mb-8 relative flex justify-center items-center">
-            {showTagline && (
-              <p
-                className="text-base md:text-lg leading-relaxed"
-                style={{
-                  fontFamily: "'Caveat', cursive",
-                  color: '#5a5a5a',
-                  lineHeight: '1.6'
-                }}
-              >
-                {displayedTagline}
-                <span ref={tagEndRef} />
-              </p>
-            )}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="border-t border-[#d4e4f7]/30 pt-4 md:pt-6"
+      <div className="h-20 mt-12 mb-6 md:mb-8 relative flex justify-center items-center">
+        {showTagline && (
+          <p
+            className="text-base md:text-lg leading-relaxed"
+            style={{
+              fontFamily: "'Caveat', cursive",
+              color: '#5a5a5a',
+              lineHeight: '1.6'
+            }}
           >
-            <p
-              className="text-sm md:text-base opacity-50 mb-4 md:mb-6"
-              style={{
-                fontFamily: "'Caveat', cursive",
-                color: '#4a4a4a',
-                lineHeight: '1.6'
-              }}
-            >
-              You are not alone in your career journey.
-            </p>
-
-            <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4">
-              <a href="#" className="opacity-40 hover:opacity-70 transition-opacity" aria-label="Facebook">
-                <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-              </a>
-              <a href="#" className="opacity-40 hover:opacity-70 transition-opacity" aria-label="Twitter">
-                <Twitter className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-              </a>
-              <a href="#" className="opacity-40 hover:opacity-70 transition-opacity" aria-label="LinkedIn">
-                <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-              </a>
-              <a href="#" className="opacity-40 hover:opacity-70 transition-opacity" aria-label="Instagram">
-                <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-              </a>
-              <a href="#" className="opacity-40 hover:opacity-70 transition-opacity" aria-label="Email">
-                <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-              </a>
-            </div>
-
-            <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
-              © 2025 ErocraS
-            </p>
-          </motion.div>
-        </div>
+            {displayedTagline}
+            <span ref={tagEndRef} />
+          </p>
+        )}
       </div>
-
-      <div className="absolute inset-0 pointer-events-none shadow-inner" style={{ boxShadow: 'inset 0 0 30px rgba(0,0,0,0.08)' }} />
-      <div className="absolute right-0 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-l from-black/10 to-transparent pointer-events-none" />
     </div>
   );
 }
