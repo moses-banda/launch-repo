@@ -146,9 +146,9 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </div>
       </div>
 
-      {/* Sticky Note - Nominate Link (Top Right, inside margins) */}
+      {/* Sticky Note - Nominate Link (Top Right) */}
       <motion.div
-        className="hidden md:flex absolute top-28 right-16 lg:right-24 w-36 h-36 lg:w-40 lg:h-40 bg-[#d4a574] p-4 shadow-lg z-30 cursor-pointer flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
+        className="absolute top-24 right-4 md:top-28 md:right-16 lg:right-24 w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 bg-[#d4a574] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
         onClick={() => setShowNominationModal(true)}
         style={{
           fontFamily: "'Caveat', cursive",
@@ -157,12 +157,12 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         whileHover={{ scale: 1.08, rotate: 6 }}
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
       >
         {/* Tape Effect */}
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-4 bg-white/50 rotate-1 backdrop-blur-sm shadow-sm" />
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 md:w-14 h-3 md:h-4 bg-white/50 rotate-1 backdrop-blur-sm shadow-sm" />
 
-        <p className="text-sm lg:text-base leading-tight font-medium text-[#4a3728]">
+        <p className="text-xs md:text-sm lg:text-base leading-tight font-medium text-[#4a3728]">
           Nominate a Vandy Student!
         </p>
         <div className="mt-1 text-[#4a3728] text-xs animate-pulse">
