@@ -146,27 +146,27 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </div>
       </div>
 
-      {/* Sticky Note - Nominate Link (Bottom Right) */}
+      {/* Sticky Note - Nominate Link (Top Right, inside margins) */}
       <motion.div
-        className="absolute bottom-36 right-4 md:right-8 w-40 h-40 md:w-44 md:h-44 bg-[#fff04b] p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
+        className="hidden md:flex absolute top-28 right-16 lg:right-24 w-36 h-36 lg:w-40 lg:h-40 bg-[#d4a574] p-4 shadow-lg z-30 cursor-pointer flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
         onClick={() => setShowNominationModal(true)}
         style={{
           fontFamily: "'Caveat', cursive",
-          boxShadow: '5px 5px 15px rgba(0,0,0,0.2)'
+          boxShadow: '5px 5px 15px rgba(0,0,0,0.25)'
         }}
-        whileHover={{ scale: 1.08, rotate: 5 }}
-        initial={{ y: 20, opacity: 0 }}
+        whileHover={{ scale: 1.08, rotate: 6 }}
+        initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
       >
         {/* Tape Effect */}
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-white/50 rotate-1 backdrop-blur-sm shadow-sm" />
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-4 bg-white/50 rotate-1 backdrop-blur-sm shadow-sm" />
 
-        <p className="text-base md:text-lg leading-tight font-bold text-[#b91c1c]">
+        <p className="text-sm lg:text-base leading-tight font-medium text-[#4a3728]">
           Nominate a Vandy Student!
         </p>
-        <div className="mt-1 text-[#b91c1c] text-sm animate-pulse">
-          Click here ➜
+        <div className="mt-1 text-[#4a3728] text-xs animate-pulse">
+          Click ➜
         </div>
       </motion.div>
 
@@ -460,11 +460,11 @@ function PageContent({
             className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-[#d4e4f7]/40"
           />
           <p
-            className="text-base md:text-lg opacity-60"
+            className="text-base md:text-lg opacity-70"
             style={{
               fontFamily: "'Caveat', cursive",
-              color: '#5a5a5a',
-              fontWeight: 600,
+              color: '#6a6a6a',
+              fontWeight: 400,
             }}
           >
             {confession.userName}
@@ -473,11 +473,12 @@ function PageContent({
 
         <div className="relative w-full text-left pl-4 md:pl-0">
           <p
-            className="text-xl md:text-2xl lg:text-3xl leading-loose whitespace-pre-line"
+            className="text-xl md:text-2xl lg:text-3xl leading-loose whitespace-pre-line font-light"
             style={{
               fontFamily: "'Caveat', cursive",
-              color: '#2d2d2d',
-              lineHeight: '2.2' // Increased line height for airy, pro look
+              color: '#4a4a4a',
+              lineHeight: '2.2',
+              fontWeight: 300
             }}
           >
             {displayedText}
@@ -489,11 +490,12 @@ function PageContent({
       <div className="h-20 mt-12 mb-6 md:mb-8 relative flex justify-center items-center">
         {showTagline && (
           <p
-            className="text-base md:text-lg leading-relaxed"
+            className="text-base md:text-lg leading-relaxed font-light"
             style={{
               fontFamily: "'Caveat', cursive",
-              color: '#5a5a5a',
-              lineHeight: '1.6'
+              color: '#7a7a7a',
+              lineHeight: '1.6',
+              fontWeight: 300
             }}
           >
             {displayedTagline}
