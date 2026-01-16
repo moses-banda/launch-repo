@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Facebook, Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Instagram, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ScribbledButton } from './ScribbledButton';
 import { animate } from 'animejs';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
@@ -146,27 +146,27 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </div>
       </div>
 
-      {/* Sticky Note - Nominate Link */}
+      {/* Sticky Note - Nominate Link (Bottom Right) */}
       <motion.div
-        className="absolute top-24 right-4 md:right-8 md:top-28 w-56 h-56 bg-[#fff04b] p-6 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
+        className="absolute bottom-36 right-4 md:right-8 w-40 h-40 md:w-44 md:h-44 bg-[#fff04b] p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-3 pointer-events-auto"
         onClick={() => setShowNominationModal(true)}
         style={{
           fontFamily: "'Caveat', cursive",
           boxShadow: '5px 5px 15px rgba(0,0,0,0.2)'
         }}
-        whileHover={{ scale: 1.05, rotate: 5 }}
-        initial={{ y: -20, opacity: 0 }}
+        whileHover={{ scale: 1.08, rotate: 5 }}
+        initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1, duration: 0.8 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
       >
         {/* Tape Effect */}
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-white/40 rotate-1 backdrop-blur-sm shadow-sm" />
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-white/50 rotate-1 backdrop-blur-sm shadow-sm" />
 
-        <p className="text-xl leading-tight font-bold text-[#b91c1c]">
-          Nominate a Vanderbilt Student to be the voice of your experience.
+        <p className="text-base md:text-lg leading-tight font-bold text-[#b91c1c]">
+          Nominate a Vandy Student!
         </p>
-        <div className="mt-2 text-[#b91c1c] animate-pulse">
-          ➜
+        <div className="mt-1 text-[#b91c1c] text-sm animate-pulse">
+          Click here ➜
         </div>
       </motion.div>
 
@@ -288,22 +288,53 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
 
       </div>
 
-      {/* Interaction Surface for Swipe */}
-      <div
-        className="absolute inset-0 z-20 cursor-grab active:cursor-grabbing"
-        onPointerDown={(e) => {
-          const startX = e.clientX;
-          const handlePointerUp = (upEvent: PointerEvent) => {
-            const diff = startX - upEvent.clientX;
-            if (Math.abs(diff) > 50) {
-              if (diff > 0) triggerTransition('next');
-              else triggerTransition('prev');
-            }
-            window.removeEventListener('pointerup', handlePointerUp);
-          };
-          window.addEventListener('pointerup', handlePointerUp);
-        }}
-      />
+      {/* Navigation Arrows - Clear and Easy to Use */}
+      <div className="absolute left-20 md:left-28 top-1/2 -translate-y-1/2 z-30 pointer-events-auto">
+        <motion.button
+          onClick={() => triggerTransition('prev')}
+          whileHover={{ scale: 1.2, x: -5 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/80 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+          aria-label="Previous story"
+        >
+          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 text-[#2d2d2d]" />
+        </motion.button>
+      </div>
+
+      <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 pointer-events-auto">
+        <motion.button
+          onClick={() => triggerTransition('next')}
+          whileHover={{ scale: 1.2, x: 5 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/80 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+          aria-label="Next story"
+        >
+          <ChevronRight className="w-6 h-6 md:w-8 md:h-8 text-[#2d2d2d]" />
+        </motion.button>
+      </div>
+
+      {/* Page indicator dots */}
+      <div className="absolute bottom-48 left-1/2 -translate-x-1/2 z-30 flex gap-2 pointer-events-auto">
+        {confessions.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              if (!isTransitioning && index !== currentIndex) {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                  setCurrentIndex(index);
+                  setIsTransitioning(false);
+                }, 300);
+              }
+            }}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentIndex
+              ? 'bg-[#8b0000] w-6'
+              : 'bg-[#d4e4f7] hover:bg-[#b8d4f0]'
+              }`}
+            aria-label={`Go to story ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
