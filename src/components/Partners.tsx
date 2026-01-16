@@ -127,17 +127,20 @@ export function Partners({ onNavigate }: PartnersProps) {
       {/* Header Section */}
       <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
 
-        <div className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0">
+        <div
+          className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group"
+          onClick={() => onNavigate('home')}
+        >
           <motion.img
             src={logo}
             alt="Erocras Logo"
-            className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            className="w-8 h-8 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
           />
           <div className="flex flex-col">
             <p
-              className="text-sm md:text-base tracking-widest"
+              className="text-sm md:text-base tracking-widest group-hover:text-[#b91c1c] transition-colors"
               style={{
                 fontFamily: 'Georgia, serif',
                 color: '#2d2d2d',
