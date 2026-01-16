@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, X } from 'lucide-react';
+import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 
 interface NominationPageProps {
     onBack: () => void;
@@ -8,90 +9,188 @@ interface NominationPageProps {
 
 export function NominationPage({ onBack }: NominationPageProps) {
     const [nomineeName, setNomineeName] = useState('');
+    const [nomineeEmail, setNomineeEmail] = useState('');
     const [reason, setReason] = useState('');
 
     const handleSubmit = () => {
         if (nomineeName.trim()) {
-            console.log('Nomination Submitted:', { nomineeName, reason });
+            console.log('Nomination Submitted:', { nomineeName, nomineeEmail, reason });
             onBack(); // Transition back to main page
         }
     };
 
     return (
-        <div className="absolute inset-0 bg-black/40 overflow-hidden flex items-center justify-center p-4 z-50 pointer-events-auto backdrop-blur-sm">
-            <motion.div
-                initial={{ scale: 0.9, opacity: 0, rotate: -2 }}
-                animate={{ scale: 1, opacity: 1, rotate: 2 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="w-full max-w-md relative bg-[#d4a574] p-6 md:p-8 shadow-xl transform"
+        <div className="w-full h-screen flex items-center justify-center bg-[#2a2420] overflow-hidden">
+            {/* Left book spine shadow */}
+            <div className="absolute left-0 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-[#5a4334] to-transparent z-20 pointer-events-none" />
+
+            {/* Static Background Frame - Same as NotebookPage */}
+            <div
+                className="absolute inset-0 z-0 pointer-events-none"
                 style={{
-                    fontFamily: "'Caveat', cursive",
-                    boxShadow: '8px 8px 20px rgba(0,0,0,0.3)',
+                    background: 'linear-gradient(to bottom, #faf8f3 0%, #f5f1e8 100%)',
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 0 40px rgba(0,0,0,0.03)'
                 }}
             >
-                {/* Tape Effect */}
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-white/50 rotate-1 backdrop-blur-sm shadow-sm" />
+                <div
+                    className="absolute inset-0 opacity-[0.15]"
+                    style={{
+                        backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 600\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'2.5\' numOctaves=\'3\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")',
+                    }}
+                />
+                {/* Notebook Lines */}
+                <div className="absolute inset-0">
+                    {Array.from({ length: 40 }).map((_, i) => (
+                        <div
+                            key={i}
+                            className="absolute left-0 right-0 h-px bg-[#d4e4f7]/30"
+                            style={{ top: `${(i + 1) * 2.5}%` }}
+                        />
+                    ))}
+                </div>
+                {/* Margin Line */}
+                <div className="absolute left-16 md:left-20 top-0 bottom-0 w-px bg-[#f4a6a6]/25" />
+            </div>
 
-                {/* Cancel Button with hover grow */}
+            {/* Header with Logo and Close */}
+            <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
+                <div className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0">
+                    <motion.img
+                        src={logo}
+                        alt="Erocras Logo"
+                        className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                    />
+                    <p
+                        className="text-sm md:text-base tracking-widest opacity-90"
+                        style={{
+                            fontFamily: 'Georgia, serif',
+                            color: '#2d2d2d',
+                            letterSpacing: '0.2em'
+                        }}
+                    >
+                        Erocras
+                    </p>
+                </div>
+
+                {/* Close/Back Button */}
                 <motion.button
                     onClick={onBack}
-                    whileHover={{ scale: 1.3 }}
+                    whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
-                    className="absolute top-3 right-3 opacity-60 hover:opacity-100 transition-opacity p-1"
+                    className="absolute top-6 right-6 md:right-12 opacity-50 hover:opacity-100 transition-opacity pointer-events-auto"
                 >
-                    <X className="w-6 h-6 text-[#4a3728]" />
+                    <X className="w-8 h-8 text-[#4a4a4a]" />
                 </motion.button>
+            </div>
 
-                <h2
-                    className="text-2xl md:text-3xl text-center mb-6 font-normal"
-                    style={{ color: '#4a3728' }}
+            {/* Main Content */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="relative z-10 w-full max-w-2xl mx-auto px-8 md:px-16 pl-24 md:pl-32"
+            >
+                {/* Title */}
+                <h1
+                    className="text-3xl md:text-4xl lg:text-5xl text-center mb-12 md:mb-16 italic font-light"
+                    style={{
+                        fontFamily: "'Caveat', cursive",
+                        color: '#b91c1c'
+                    }}
                 >
-                    Nominate a Voice
-                </h2>
+                    Nominate a Vanderbilt Student
+                </h1>
 
-                <div className="space-y-5">
+                {/* Form Fields */}
+                <div className="space-y-10 md:space-y-12">
+                    {/* Name Field */}
                     <div>
-                        <label
-                            className="block text-lg mb-1 font-normal"
-                            style={{ color: '#5a4535' }}
+                        <span
+                            className="inline-block px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
+                            style={{
+                                fontFamily: "'Caveat', cursive",
+                                backgroundColor: '#fef08a',
+                                color: '#713f12'
+                            }}
                         >
-                            Name of Vandy Student
-                        </label>
+                            Insert name of Vandy Student
+                        </span>
                         <input
                             type="text"
                             value={nomineeName}
                             onChange={(e) => setNomineeName(e.target.value)}
-                            placeholder="Enter their first name..."
-                            className="w-full bg-white/30 border-b-2 border-[#4a3728]/30 focus:border-[#4a3728] outline-none text-lg p-2 transition-colors placeholder:text-[#7a6555]"
-                            style={{ color: '#3a2a1a' }}
+                            placeholder="John Doe"
+                            className="w-full bg-transparent border-none outline-none text-xl md:text-2xl py-2 font-light"
+                            style={{
+                                fontFamily: "'Caveat', cursive",
+                                color: '#3a3a3a'
+                            }}
                         />
                     </div>
 
+                    {/* Email Field */}
                     <div>
-                        <label
-                            className="block text-lg mb-1 font-normal"
-                            style={{ color: '#5a4535' }}
+                        <span
+                            className="inline-block px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
+                            style={{
+                                fontFamily: "'Caveat', cursive",
+                                backgroundColor: '#fecaca',
+                                color: '#991b1b'
+                            }}
                         >
-                            Why should they be the voice? (optional)
-                        </label>
+                            Insert their Vanderbilt or personal email
+                        </span>
+                        <input
+                            type="email"
+                            value={nomineeEmail}
+                            onChange={(e) => setNomineeEmail(e.target.value)}
+                            placeholder="john.doe@vanderbilt.edu"
+                            className="w-full bg-transparent border-none outline-none text-xl md:text-2xl py-2 font-light"
+                            style={{
+                                fontFamily: "'Caveat', cursive",
+                                color: '#3a3a3a'
+                            }}
+                        />
+                    </div>
+
+                    {/* Reason Field */}
+                    <div>
+                        <span
+                            className="inline-block px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
+                            style={{
+                                fontFamily: "'Caveat', cursive",
+                                backgroundColor: '#fecaca',
+                                color: '#991b1b'
+                            }}
+                        >
+                            In one or two sentences, why should they be nominated?
+                        </span>
                         <textarea
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
+                            placeholder="They have been incredibly supportive and deserve recognition..."
                             rows={2}
-                            placeholder="Tell us briefly..."
-                            className="w-full bg-white/30 border-b-2 border-[#4a3728]/30 focus:border-[#4a3728] outline-none text-lg p-2 transition-colors resize-none placeholder:text-[#7a6555]"
-                            style={{ color: '#3a2a1a' }}
+                            className="w-full bg-transparent border-none outline-none text-xl md:text-2xl py-2 resize-none font-light"
+                            style={{
+                                fontFamily: "'Caveat', cursive",
+                                color: '#3a3a3a'
+                            }}
                         />
                     </div>
 
-                    <div className="flex justify-center pt-2">
+                    {/* Submit Button */}
+                    <div className="flex justify-center pt-4">
                         <motion.button
                             onClick={handleSubmit}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-[#4a3728] text-[#f5ebe0] px-6 py-2.5 rounded-full text-lg shadow-lg flex items-center gap-2"
+                            className="bg-[#b91c1c] text-white px-8 py-3 rounded-full text-xl shadow-lg flex items-center gap-2"
+                            style={{ fontFamily: "'Caveat', cursive" }}
                         >
-                            Submit <ArrowRight className="w-4 h-4" />
+                            Submit Nomination <ArrowRight className="w-5 h-5" />
                         </motion.button>
                     </div>
                 </div>
