@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Facebook, Linkedin, Instagram, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
 import { XIcon } from './XIcon';
 import { ScribbledButton } from './ScribbledButton';
+import '../sticky-note.css';
 import { animate } from 'animejs';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 import profileIcon from 'figma:asset/8e273ee48e90346d297e8cee71c2504f5f00a434.png';
@@ -104,68 +105,62 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           />
         </div>
 
-        {/* Static Footer (moved here to stay permanent) */}
-        <div className="absolute bottom-4 md:bottom-12 left-0 right-0 px-4 md:px-16 pl-[4.5rem] md:pl-32">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="border-t border-[#d4e4f7]/30 pt-4 md:pt-6">
-              <p
-                className="text-sm md:text-base opacity-50 mb-4 md:mb-6"
-                style={{
-                  fontFamily: "'Caveat', cursive",
-                  color: '#4a4a4a',
-                  lineHeight: '1.6'
-                }}
-              >
-                You are not alone in your career journey.
-              </p>
+      </div>
 
-              <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4 pointer-events-auto">
-                <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
-                  <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
-                  <XIcon className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
-                  <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
-                  <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="mailto:contact@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
-                  <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-              </div>
+      {/* Footer (Moved out for z-index accessibility) */}
+      <div className="absolute bottom-4 md:bottom-12 left-0 right-0 px-4 md:px-16 pl-[4.5rem] md:pl-32 z-20 pointer-events-auto">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="border-t border-[#d4e4f7]/30 pt-4 md:pt-6">
+            <p
+              className="text-sm md:text-base opacity-50 mb-4 md:mb-6"
+              style={{
+                fontFamily: "'Caveat', cursive",
+                color: '#4a4a4a',
+                lineHeight: '1.6'
+              }}
+            >
+              You are not alone in your career journey.
+            </p>
 
-              <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
-                © 2025 Erocras
-              </p>
+            <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4">
+              <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
+                <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+              </motion.a>
+              <motion.a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
+                <XIcon className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+              </motion.a>
+              <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
+                <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+              </motion.a>
+              <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
+                <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+              </motion.a>
+              <motion.a href="mailto:contact@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
+                <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+              </motion.a>
             </div>
+
+            <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
+              © 2025 Erocras
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Sticky Note - Nominate Link (Top Right - Yellow Flashcard) */}
+      {/* Sticky Note - Nominate Link */}
+      {/* Sticky Note - Nominate Link */}
       <motion.div
-        className="absolute top-32 right-2 md:top-24 md:right-12 lg:right-16 w-28 h-36 md:w-32 md:h-44 lg:w-36 lg:h-48 bg-[#ffd700] p-3 md:p-4 shadow-lg z-30 cursor-pointer flex flex-col justify-center items-center text-center transform rotate-2 pointer-events-auto"
+        className="sticky-note-container absolute bottom-20 right-6 md:bottom-24 md:right-20 lg:right-32 z-30 pointer-events-auto touch-none cursor-pointer"
+        whileHover={{ scale: 1.05 }}
         onClick={() => onNavigate('nomination')}
-        style={{
-          fontFamily: "'Caveat', cursive",
-          boxShadow: '4px 4px 12px rgba(0,0,0,0.3)'
-        }}
-        whileHover={{ scale: 1.08, rotate: 5 }}
-        initial={{ y: -15, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
       >
-        {/* Tape Effect */}
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-10 md:w-12 h-3 md:h-4 bg-white/60 rotate-1 shadow-sm" />
-
-        <p className="text-xs md:text-sm lg:text-base leading-tight font-semibold text-[#5a4a00]">
-          Nominate a Vandy Student!
-        </p>
-        <div className="mt-2 text-[#5a4a00] text-xs animate-pulse">
-          Click ➜
+        <div className="sticky-note pointer-events-auto">
+          <div className="note-text">
+            Nominate a Vanderbilt Student<br />to be the voice of your experience.
+          </div>
+          <div className="arrow-icon">
+            &rarr;
+          </div>
         </div>
       </motion.div>
 
@@ -334,7 +329,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           />
         ))}
       </div>
-    </div>
+    </div >
   );
 }
 
@@ -470,7 +465,7 @@ function PageContent({
           </p>
         </motion.div>
 
-        <div className="relative w-full text-justify max-w-5xl mx-auto mt-12 md:mt-16 pl-20 pr-6 md:px-32">
+        <div className="relative w-full text-justify max-w-5xl mx-auto mt-12 md:mt-16" style={{ paddingLeft: '22%', paddingRight: '22%' }}>
           <p
             className="text-xl md:text-2xl lg:text-3xl leading-loose font-light"
             style={{

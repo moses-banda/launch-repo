@@ -64,7 +64,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                                     lineHeight: '1.6'
                                 }}
                             >
-                                You are not alone in your career journey.
+                                <br />You are not alone in your career journey.
                             </p>
 
                             <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4 pointer-events-auto">
@@ -124,7 +124,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                     onClick={() => onNavigate('home')}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="absolute top-6 right-6 md:right-12 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity pointer-events-auto px-4 py-2 rounded-full bg-white/70 hover:bg-white/95 shadow-lg z-50"
+                    className="absolute top-6 right-6 md:right-12 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity pointer-events-auto px-4 py-2 rounded-full bg-white/70 hover:bg-white/95 shadow-lg z-[60] cursor-pointer"
                     style={{ fontFamily: "'Caveat', cursive" }}
                     type="button"
                 >
@@ -153,11 +153,12 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                 </h1>
 
                 {/* Form Fields */}
-                <div className="space-y-10 md:space-y-12">
+                {/* Form Fields */}
+                <div className="space-y-10 md:space-y-12 pl-[15%]">
                     {/* Name Field */}
-                    <div>
+                    <div className="flex flex-col items-start">
                         <span
-                            className="inline-block px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
+                            className="px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
                             style={{
                                 fontFamily: "'Caveat', cursive",
                                 backgroundColor: '#fef08a',
@@ -170,44 +171,44 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                             type="text"
                             value={nomineeName}
                             onChange={(e) => setNomineeName(e.target.value)}
-                            placeholder="John Doe"
+                            placeholder="      Sabrina Lin ..."
                             className="w-full bg-transparent border-none outline-none text-xl md:text-2xl py-2 font-light"
                             style={{
                                 fontFamily: "'Caveat', cursive",
-                                color: '#3a3a3a'
+                                color: '#515050ff'
                             }}
                         />
                     </div>
 
                     {/* Email Field */}
-                    <div>
+                    <div className="flex flex-col items-start">
                         <span
-                            className="inline-block px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
+                            className="px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
                             style={{
                                 fontFamily: "'Caveat', cursive",
                                 backgroundColor: '#fecaca',
                                 color: '#991b1b'
                             }}
                         >
-                            Insert their Vanderbilt or personal email
+                            Academic year
                         </span>
                         <input
                             type="email"
                             value={nomineeEmail}
                             onChange={(e) => setNomineeEmail(e.target.value)}
-                            placeholder="john.doe@vanderbilt.edu"
+                            placeholder="      sophomore ..."
                             className="w-full bg-transparent border-none outline-none text-xl md:text-2xl py-2 font-light"
                             style={{
                                 fontFamily: "'Caveat', cursive",
-                                color: '#3a3a3a'
+                                color: '#515050ff'
                             }}
                         />
                     </div>
 
                     {/* Reason Field */}
-                    <div>
+                    <div className="flex flex-col items-start">
                         <span
-                            className="inline-block px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
+                            className="px-4 py-1.5 rounded-sm text-sm md:text-base mb-3"
                             style={{
                                 fontFamily: "'Caveat', cursive",
                                 backgroundColor: '#fecaca',
@@ -219,12 +220,12 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                         <textarea
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
-                            placeholder="They have been incredibly supportive and deserve recognition..."
+                            placeholder="      They have been incredibly supportive and deserve recognition..."
                             rows={2}
                             className="w-full bg-transparent border-none outline-none text-xl md:text-2xl py-2 resize-none font-light"
                             style={{
                                 fontFamily: "'Caveat', cursive",
-                                color: '#3a3a3a'
+                                color: '#515050ff'
                             }}
                         />
                     </div>

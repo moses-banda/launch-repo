@@ -181,7 +181,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
                   lineHeight: '1.6'
                 }}
               >
-                You are not alone in your career journey.
+                You are never alone in your career journey.
               </p>
 
               <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4 pointer-events-auto">
@@ -235,6 +235,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
               }}
             >
               Erocras
+
             </p>
           </div>
         </div>
@@ -244,7 +245,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
             className="text-lg md:text-xl whitespace-nowrap text-right"
             style={{
               fontFamily: "'Caveat', cursive",
-              color: '#daa520', // Goldenrod
+              color: '#5e460aff', // Goldenrod
               fontWeight: 700,
               transform: 'rotate(-2deg)'
             }}
@@ -257,12 +258,12 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
               scale: [1, 1.02, 1]
             }}
             transition={{
-              duration: 3,
+              duration: 5,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           >
-            Coming Soon on<br />20th August 2026
+            Coming Soon on<br />August 2026
           </motion.p>
         </div>
 
@@ -313,7 +314,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
             className="text-3xl md:text-5xl mb-12 md:mb-20 text-center"
             style={{ fontFamily: "'Caveat', cursive", color: '#2d2d2d' }}
           >
-            Reserve your spot in history
+            Enter your personal email = join the waitlist;
           </h2>
 
           <div className="relative group w-full">
