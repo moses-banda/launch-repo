@@ -4,6 +4,7 @@ import { Facebook, Linkedin, Instagram, Mail, ArrowRight } from 'lucide-react';
 import { XIcon } from './XIcon';
 import { animate } from 'animejs';
 import { ScribbledButton } from './ScribbledButton';
+import { Fireworks } from './Fireworks';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 
 interface JoinWaitlistProps {
@@ -46,6 +47,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
   const quillRef = useRef<HTMLDivElement>(null);
   const [quillPos, setQuillPos] = useState(0);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Detect mobile keyboard visibility
   useEffect(() => {
@@ -171,10 +173,10 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
   };
 
   const handleSubmit = () => {
-    if (email) {
-      // In a real app, submit here
+    if (email && email.includes('@')) {
+      // In a real app, submit to backend here
       console.log('Submitted:', email);
-      onNavigate('home');
+      setIsSubmitted(true);
     }
   };
 
@@ -380,77 +382,131 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
         style={{ paddingLeft: '16%', paddingRight: '16%', paddingTop: '6rem', paddingBottom: '6rem' }}
       >
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="w-full flex flex-col items-center pointer-events-auto"
-        >
-          <h2
-            className="mb-8 md:mb-16 text-center w-full"
-            style={{
-              fontFamily: "'Caveat', cursive",
-              color: '#2d2d2d',
-              fontSize: 'clamp(1.5rem, 4vw, 3rem)'
-            }}
-          >
-            Enter school or personal email to join the waitlist
-          </h2>
+        <AnimatePresence mode="wait">
+          {!isSubmitted ? (
+            <motion.div
+              key="form"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="w-full flex flex-col items-center pointer-events-auto"
+            >
+              <h2
+                className="mb-8 md:mb-16 text-center w-full"
+                style={{
+                  fontFamily: "'Caveat', cursive",
+                  color: '#2d2d2d',
+                  fontSize: 'clamp(1.5rem, 4vw, 3rem)'
+                }}
+              >
+                Enter school or personal email to join the waitlist
+              </h2>
 
-          <div
-            className={`relative group w-full transition-transform duration-300 ease-out ${isKeyboardVisible ? '-translate-y-32 md:-translate-y-0' : ''}`}
-            style={{ pointerEvents: 'auto' }}
-          >
-            <div className="relative flex items-center h-24" style={{ pointerEvents: 'auto' }}>
+              <div
+                className={`relative group w-full transition-transform duration-300 ease-out ${isKeyboardVisible ? '-translate-y-32 md:-translate-y-0' : ''}`}
+                style={{ pointerEvents: 'auto' }}
+              >
+                <div className="relative flex items-center h-24" style={{ pointerEvents: 'auto' }}>
 
-              <div className="relative w-full" style={{ pointerEvents: 'auto' }}>
-                <input
-                  ref={inputRef}
-                  type="email"
-                  value={email}
-                  onChange={handleInputChange}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-                  placeholder="erocras@abc.edu"
-                  className="w-full bg-transparent border-none outline-none py-2 relative pointer-events-auto z-10"
-                  style={{
-                    fontFamily: "'Caveat', cursive",
-                    color: '#2d1e14',
-                    caretColor: '#2d1e14',
-                    fontSize: 'clamp(1.25rem, 3.5vw, 2.5rem)',
-                  }}
-                  autoFocus
-                />
+                  <div className="relative w-full" style={{ pointerEvents: 'auto' }}>
+                    <input
+                      ref={inputRef}
+                      type="email"
+                      value={email}
+                      onChange={handleInputChange}
+                      onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
+                      placeholder="erocras@abc.edu"
+                      className="w-full bg-transparent border-none outline-none py-2 relative pointer-events-auto z-10"
+                      style={{
+                        fontFamily: "'Caveat', cursive",
+                        color: '#2d1e14',
+                        caretColor: '#2d1e14',
+                        fontSize: 'clamp(1.25rem, 3.5vw, 2.5rem)',
+                      }}
+                      autoFocus
+                    />
 
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2d1e14]/10" />
+                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2d1e14]/10" />
+                  </div>
+
+                  <motion.button
+                    onClick={handleSubmit}
+                    whileHover={{ scale: 1.1, x: 5 }}
+                    className="ml-4 md:ml-8 p-3 md:p-4 bg-[#2d1e14] text-[#faf8f3] rounded-full shadow-lg shrink-0"
+                  >
+                    <ArrowRight size={24} className="md:w-8 md:h-8" />
+                  </motion.button>
+                </div>
+
+                <AnimatePresence>
+                  {suggestion && !isAnimatingEmail && (
+                    <motion.button
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      onClick={handleSuggestionClick}
+                      className="mt-6 text-xl md:text-2xl opacity-40 hover:opacity-100 transition-all font-cursive italic"
+                      style={{ fontFamily: "'Caveat', cursive" }}
+                    >
+                      Tap to auto-scribe {suggestion}
+                    </motion.button>
+                  )}
+                </AnimatePresence>
               </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="w-full flex flex-col items-center justify-center text-center pointer-events-auto"
+            >
+              <h2
+                className="mb-8 md:mb-12"
+                style={{
+                  fontFamily: "'Caveat', cursive",
+                  color: '#2d2d2d',
+                  fontSize: 'clamp(2rem, 5vw, 4rem)',
+                  textShadow: '0 0 20px rgba(255,215,0,0.3)'
+                }}
+              >
+                We've added your name in the stars.
+              </h2>
 
               <motion.button
-                onClick={handleSubmit}
-                whileHover={{ scale: 1.1, x: 5 }}
-                className="ml-4 md:ml-8 p-3 md:p-4 bg-[#2d1e14] text-[#faf8f3] rounded-full shadow-lg shrink-0"
+                onClick={() => onNavigate('home')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="mt-12 px-12 py-4 rounded-full shadow-lg transition-all duration-300 text-lg md:text-xl tracking-widest border border-[#b8962e]"
+                style={{
+                  fontFamily: 'Georgia, serif',
+                  backgroundColor: '#d4af37',
+                  color: '#2d1e14',
+                  fontWeight: 'bold'
+                }}
               >
-                <ArrowRight size={24} className="md:w-8 md:h-8" />
+                RETURN HOME
               </motion.button>
-            </div>
-
-            <AnimatePresence>
-              {suggestion && !isAnimatingEmail && (
-                <motion.button
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  onClick={handleSuggestionClick}
-                  className="mt-6 text-xl md:text-2xl opacity-40 hover:opacity-100 transition-all font-cursive italic"
-                  style={{ fontFamily: "'Caveat', cursive" }}
-                >
-                  Tap to auto-scribe {suggestion}
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
+
+
+      <AnimatePresence>
+        {isSubmitted && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-[5] pointer-events-auto"
+          >
+            <Fireworks />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div >
   );
 }
