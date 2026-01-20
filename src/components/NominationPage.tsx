@@ -94,7 +94,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
             </div>
 
             {/* Header with Logo and Back Button */}
-            <div className="absolute top-0 left-0 right-0 z-50 pointer-events-none">
+            <div className="absolute top-0 left-0 right-0 z-[60]">
                 <div
                     className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group"
                     onClick={() => onNavigate('home')}
@@ -121,7 +121,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
 
                 {/* Back Button */}
                 <motion.button
-                    onClick={() => onNavigate('home')}
+                    onClick={() => onNavigate('waitlist')}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="absolute top-6 right-6 md:right-12 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity pointer-events-auto px-4 py-2 rounded-full bg-white/70 hover:bg-white/95 shadow-lg z-[60] cursor-pointer"

@@ -2,17 +2,27 @@ import { motion } from 'motion/react';
 
 interface ScribbledButtonProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
+  href?: string;
 }
 
-export function ScribbledButton({ text, onClick }: ScribbledButtonProps) {
+export function ScribbledButton({ text, onClick, href }: ScribbledButtonProps) {
+  const Component = href ? motion.a : motion.button;
+  const commonProps = {
+    className: "relative z-10 group cursor-pointer block no-underline pointer-events-auto",
+    whileHover: { scale: 1.05 },
+    whileTap: { scale: 0.95 },
+    onClick: (e: any) => {
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+      }
+      onClick?.();
+    },
+    ...(href ? { href } : {})
+  };
+
   return (
-    <motion.button
-      onClick={onClick}
-      className="relative group cursor-pointer"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
+    <Component {...commonProps as any}>
       {/* Pulsing circular scribbles */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none"
@@ -97,7 +107,7 @@ export function ScribbledButton({ text, onClick }: ScribbledButtonProps) {
 
       {/* Button text */}
       <span
-        className="relative z-10 px-4 py-2 block text-sm md:text-base group-hover:opacity-80 transition-opacity"
+        className="relative z-10 px-4 py-2 block text-sm md:text-base group-hover:opacity-80 transition-opacity text-center"
         style={{
           fontFamily: "'Caveat', cursive",
           color: '#2d2d2d',
@@ -107,6 +117,6 @@ export function ScribbledButton({ text, onClick }: ScribbledButtonProps) {
       >
         {text}
       </span>
-    </motion.button>
+    </Component>
   );
 }

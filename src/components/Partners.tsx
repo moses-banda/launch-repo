@@ -125,7 +125,7 @@ export function Partners({ onNavigate }: PartnersProps) {
       </div>
 
       {/* Header Section */}
-      <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 z-50">
 
         <div
           className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group"
@@ -176,7 +176,7 @@ export function Partners({ onNavigate }: PartnersProps) {
               ease: "easeInOut"
             }}
           >
-            Coming Soon on<br />20th August 2026
+            Coming Soon on<br />12 August 2026
           </motion.p>
         </div>
 

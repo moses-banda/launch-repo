@@ -45,6 +45,7 @@ const confessions: Confession[] = [
 export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'waitlist' | 'partners' | 'nomination') => void }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const triggerTransition = (direction: 'next' | 'prev') => {
     if (isTransitioning) return;
@@ -147,14 +148,27 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </div>
       </div>
 
-      {/* Sticky Note - Nominate Link */}
-      {/* Sticky Note - Nominate Link */}
+      {/* Sticky Note - Draggable Nominate Link */}
       <motion.div
-        className="sticky-note-container absolute bottom-20 right-6 md:bottom-24 md:right-20 lg:right-32 z-30 pointer-events-auto touch-none cursor-pointer"
-        whileHover={{ scale: 1.05 }}
-        onClick={() => onNavigate('nomination')}
+        drag
+        dragMomentum={false}
+        dragElastic={0.1}
+        onDragStart={() => setIsDragging(true)}
+        onDragEnd={() => setTimeout(() => setIsDragging(false), 100)}
+        whileDrag={{ scale: 1.08, cursor: 'grabbing' }}
+        className="sticky-note-container absolute bottom-20 right-6 md:bottom-24 md:right-20 lg:right-32 z-30 pointer-events-auto touch-none cursor-grab"
+        style={{
+          boxShadow: '8px 12px 25px rgba(0,0,0,0.35), 4px 6px 10px rgba(0,0,0,0.2)'
+        }}
       >
-        <div className="sticky-note pointer-events-auto">
+        <div
+          className="sticky-note pointer-events-auto"
+          onClick={() => {
+            if (!isDragging) {
+              onNavigate('nomination');
+            }
+          }}
+        >
           <div className="note-text">
             Nominate a Vanderbilt Student<br />to be the voice of your experience.
           </div>
@@ -168,13 +182,16 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
 
 
       {/* Header Section */}
-      <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 z-50" style={{ pointerEvents: 'auto' }}>
 
-        {/* Brand (Top Left) */}
-        {/* Brand (Top Left) */}
-        <div
-          className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group"
-          onClick={() => onNavigate('home')}
+        {/* Brand (Top Left) - Click to refresh */}
+        <a
+          href="#"
+          className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group no-underline"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.reload();
+          }}
         >
           <motion.img
             src={logo}
@@ -196,7 +213,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
               Erocras
             </p>
           </div>
-        </div>
+        </a>
 
         {/* Date (Top Right - visible on all screens) */}
         <div className="absolute top-7 right-6 md:right-12 pointer-events-auto pr-4 md:pr-0">
@@ -222,40 +239,63 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
               ease: "easeInOut"
             }}
           >
-            Coming Soon on<br />20th August 2026
+            Coming Soon on<br />12 August 2026
           </motion.p>
         </div>
 
         {/* Buttons (Desktop: Top Right next to date, Mobile: Below header) */}
-        <div className="absolute md:top-6 md:right-48 right-0 left-0 top-20 flex md:justify-end justify-center pointer-events-auto md:pr-4">
+        <div
+          className="absolute md:top-6 md:right-48 right-0 left-0 top-20 flex md:justify-end justify-center md:pr-4 z-[60]"
+          style={{ pointerEvents: 'auto' }}
+        >
           <div className="flex gap-2 md:gap-4 scale-90 md:scale-100">
-            <motion.div
-              animate={{
-                rotate: [0, 3, -3, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut"
+            <a
+              href="#"
+              style={{ pointerEvents: 'auto' }}
+              className="cursor-pointer no-underline"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('waitlist');
               }}
             >
-              <ScribbledButton text="Join Waitlist" onClick={() => onNavigate('waitlist')} />
-            </motion.div>
-            <motion.div
-              animate={{
-                rotate: [0, -3, 3, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2.5,
-                ease: "easeInOut",
-                delay: 0.5
+              <motion.div
+                animate={{
+                  rotate: [0, 3, -3, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut"
+                }}
+              >
+                <ScribbledButton text="Join Waitlist" onClick={() => onNavigate('waitlist')} />
+              </motion.div>
+            </a>
+            <a
+              href="#"
+              style={{ pointerEvents: 'auto' }}
+              className="cursor-pointer no-underline"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('partners');
               }}
             >
-              <ScribbledButton text="Our Partners" onClick={() => onNavigate('partners')} />
-            </motion.div>
+              <motion.div
+                animate={{
+                  rotate: [0, -3, 3, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2.5,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              >
+                <ScribbledButton text="Our Partners" onClick={() => onNavigate('partners')} />
+              </motion.div>
+            </a>
           </div>
         </div>
       </div>
@@ -283,7 +323,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
       </div>
 
       {/* Navigation Arrows - Clear and Easy to Use */}
-      <div className="absolute left-20 md:left-28 top-1/2 -translate-y-1/2 z-30 pointer-events-auto">
+      <div className="absolute top-1/2 -translate-y-1/2 z-30 pointer-events-auto" style={{ left: '13%' }}>
         <motion.button
           onClick={() => triggerTransition('prev')}
           whileHover={{ scale: 1.2, x: -5 }}
@@ -295,7 +335,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </motion.button>
       </div>
 
-      <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 pointer-events-auto">
+      <div className="absolute top-1/2 -translate-y-1/2 z-30 pointer-events-auto" style={{ right: '13%' }}>
         <motion.button
           onClick={() => triggerTransition('next')}
           whileHover={{ scale: 1.2, x: 5 }}

@@ -7,7 +7,7 @@ import { ScribbledButton } from './ScribbledButton';
 import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 
 interface JoinWaitlistProps {
-  onNavigate: (page: 'home' | 'waitlist' | 'partners') => void;
+  onNavigate: (page: 'home' | 'waitlist' | 'partners' | 'nomination') => void;
 }
 
 const emailSuggestions: Record<string, string> = {
@@ -211,11 +211,15 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
       </div>
 
       {/* Header Section */}
-      <div className="absolute top-0 left-0 right-0 z-40 pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 z-50" style={{ pointerEvents: 'auto' }}>
 
-        <div
-          className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group"
-          onClick={() => onNavigate('home')}
+        <a
+          href="#"
+          className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group no-underline"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate('home');
+          }}
         >
           <motion.img
             src={logo}
@@ -238,7 +242,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
 
             </p>
           </div>
-        </div>
+        </a>
 
         <div className="absolute top-7 right-6 md:right-12 pointer-events-auto pr-4 md:pr-0">
           <motion.p
@@ -263,39 +267,62 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
               ease: "easeInOut"
             }}
           >
-            Coming Soon on<br />August 2026
+            Coming Soon on<br />12 August 2026
           </motion.p>
         </div>
 
-        <div className="absolute md:top-6 md:right-48 right-0 left-0 top-20 flex md:justify-end justify-center pointer-events-auto md:pr-4">
+        <div
+          className="absolute md:top-6 md:right-48 right-0 left-0 top-20 flex md:justify-end justify-center md:pr-4 z-[60]"
+          style={{ pointerEvents: 'auto' }}
+        >
           <div className="flex gap-2 md:gap-4 scale-90 md:scale-100">
-            <motion.div
-              animate={{
-                rotate: [0, 3, -3, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut"
+            <a
+              href="#"
+              style={{ pointerEvents: 'auto' }}
+              className="cursor-pointer no-underline"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('home');
               }}
             >
-              <ScribbledButton text="Return Home" onClick={() => onNavigate('home')} />
-            </motion.div>
-            <motion.div
-              animate={{
-                rotate: [0, -3, 3, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2.5,
-                ease: "easeInOut",
-                delay: 0.5
+              <motion.div
+                animate={{
+                  rotate: [0, 3, -3, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut"
+                }}
+              >
+                <ScribbledButton text="Return Home" onClick={() => onNavigate('home')} />
+              </motion.div>
+            </a>
+            <a
+              href="#"
+              style={{ pointerEvents: 'auto' }}
+              className="cursor-pointer no-underline"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('partners');
               }}
             >
-              <ScribbledButton text="Our Partners" onClick={() => onNavigate('partners')} />
-            </motion.div>
+              <motion.div
+                animate={{
+                  rotate: [0, -3, 3, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2.5,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              >
+                <ScribbledButton text="Our Partners" onClick={() => onNavigate('partners')} />
+              </motion.div>
+            </a>
           </div>
         </div>
       </div>
@@ -314,56 +341,25 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
             className="text-3xl md:text-5xl mb-12 md:mb-20 text-center"
             style={{ fontFamily: "'Caveat', cursive", color: '#2d2d2d' }}
           >
-            Enter your personal email = join the waitlist;
+            Enter school or personal email to join the waitlist
           </h2>
 
           <div className="relative group w-full">
             <div className="relative flex items-center h-24">
-              {/* Thin, Sleek Stylus Pen */}
-              <motion.div
-                ref={quillRef}
-                className="absolute pointer-events-none z-50"
-                style={{
-                  left: `${quillPos}px`,
-                  top: '-40px',
-                  width: '100px',
-                  height: '100px',
-                  transformOrigin: 'bottom left'
-                }}
-                animate={{ left: quillPos - 2 }}
-              >
-                <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
-                  <path d="M10 90 L12 85 L85 12 L90 17 L17 90 L10 90 Z" fill="#2c3e50" />
-                  <path d="M10 90 L13 87 L11 89 L10 90 Z" fill="#d4af37" />
-                  <circle cx="10" cy="90" r="1.5" fill="#2d1e14" opacity="0.6" />
-                </svg>
-              </motion.div>
 
               <div className="relative w-full">
-                {/* Cinematic Re-writing layer */}
-                {isAnimatingEmail && (
-                  <div
-                    className="absolute inset-0 z-10 text-3xl md:text-4xl pointer-events-none"
-                    style={{ fontFamily: "'Caveat', cursive", color: '#2d1e14' }}
-                  >
-                    {animatedEmail}
-                  </div>
-                )}
-
                 <input
                   ref={inputRef}
                   type="email"
                   value={email}
                   onChange={handleInputChange}
-                  onKeyUp={() => !isAnimatingEmail && updateQuillPosition(email.substring(0, inputRef.current?.selectionStart || 0))}
-                  onClick={() => !isAnimatingEmail && updateQuillPosition(email.substring(0, inputRef.current?.selectionStart || 0))}
                   onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-                  placeholder={isAnimatingEmail ? "" : "Recipient of the future..."}
-                  className={`w-full bg-transparent border-none outline-none text-3xl md:text-4xl py-2 relative ${isAnimatingEmail ? 'opacity-0' : 'z-0'}`}
+                  placeholder="erocras@abc.edu"
+                  className="w-full bg-transparent border-none outline-none text-3xl md:text-4xl py-2 relative pointer-events-auto z-10"
                   style={{
                     fontFamily: "'Caveat', cursive",
                     color: '#2d1e14',
-                    caretColor: 'transparent',
+                    caretColor: '#2d1e14',
                   }}
                   autoFocus
                 />
@@ -397,6 +393,6 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
           </div>
         </motion.div>
       </div>
-    </div>
+    </div >
   );
 }
