@@ -175,6 +175,18 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           <div className="arrow-icon">
             &rarr;
           </div>
+          <div
+            className="draggable-label"
+            style={{
+              fontFamily: "'Caveat', cursive",
+              fontSize: '0.75rem',
+              opacity: 0.5,
+              marginTop: '0.25rem',
+              textAlign: 'center'
+            }}
+          >
+            (draggable)
+          </div>
         </div>
       </motion.div>
 
