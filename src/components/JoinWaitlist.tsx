@@ -45,6 +45,53 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<HTMLDivElement>(null);
   const [quillPos, setQuillPos] = useState(0);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  // Detect mobile keyboard visibility
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if visualViewport exists (modern browsers)
+      if (window.visualViewport) {
+        const viewportHeight = window.visualViewport.height;
+        const windowHeight = window.innerHeight;
+        // If viewport is significantly smaller than window, keyboard is likely visible
+        setIsKeyboardVisible(windowHeight - viewportHeight > 150);
+      }
+    };
+
+    // Listen to visualViewport resize events
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleResize);
+      window.visualViewport.addEventListener('scroll', handleResize);
+    }
+
+    // Also listen to focus events on the input
+    const handleFocus = () => {
+      // Small delay to let the keyboard animation start
+      setTimeout(() => handleResize(), 300);
+    };
+
+    const handleBlur = () => {
+      setIsKeyboardVisible(false);
+    };
+
+    const input = inputRef.current;
+    if (input) {
+      input.addEventListener('focus', handleFocus);
+      input.addEventListener('blur', handleBlur);
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleResize);
+        window.visualViewport.removeEventListener('scroll', handleResize);
+      }
+      if (input) {
+        input.removeEventListener('focus', handleFocus);
+        input.removeEventListener('blur', handleBlur);
+      }
+    };
+  }, []);
 
   const updateQuillPosition = (text: string) => {
     const tempSpan = document.createElement('span');
@@ -328,26 +375,36 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
       </div>
 
       {/* Main Form Content */}
-      <div className="absolute inset-0 flex flex-col justify-center py-24 md:py-32 pl-24 pr-8 md:pl-32 md:pr-16 z-10 pointer-events-none">
+      <div
+        className="absolute inset-0 flex flex-col justify-center z-10 pointer-events-none"
+        style={{ paddingLeft: '16%', paddingRight: '16%', paddingTop: '6rem', paddingBottom: '6rem' }}
+      >
 
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="w-full max-w-2xl mx-auto flex flex-col items-center pointer-events-auto"
+          className="w-full flex flex-col items-center pointer-events-auto"
         >
           <h2
-            className="text-3xl md:text-5xl mb-12 md:mb-20 text-center"
-            style={{ fontFamily: "'Caveat', cursive", color: '#2d2d2d' }}
+            className="mb-8 md:mb-16 text-center w-full"
+            style={{
+              fontFamily: "'Caveat', cursive",
+              color: '#2d2d2d',
+              fontSize: 'clamp(1.5rem, 4vw, 3rem)'
+            }}
           >
             Enter school or personal email to join the waitlist
           </h2>
 
-          <div className="relative group w-full">
-            <div className="relative flex items-center h-24">
+          <div
+            className={`relative group w-full transition-transform duration-300 ease-out ${isKeyboardVisible ? '-translate-y-32 md:-translate-y-0' : ''}`}
+            style={{ pointerEvents: 'auto' }}
+          >
+            <div className="relative flex items-center h-24" style={{ pointerEvents: 'auto' }}>
 
-              <div className="relative w-full">
+              <div className="relative w-full" style={{ pointerEvents: 'auto' }}>
                 <input
                   ref={inputRef}
                   type="email"
@@ -355,11 +412,12 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
                   onChange={handleInputChange}
                   onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
                   placeholder="erocras@abc.edu"
-                  className="w-full bg-transparent border-none outline-none text-3xl md:text-4xl py-2 relative pointer-events-auto z-10"
+                  className="w-full bg-transparent border-none outline-none py-2 relative pointer-events-auto z-10"
                   style={{
                     fontFamily: "'Caveat', cursive",
                     color: '#2d1e14',
                     caretColor: '#2d1e14',
+                    fontSize: 'clamp(1.25rem, 3.5vw, 2.5rem)',
                   }}
                   autoFocus
                 />
