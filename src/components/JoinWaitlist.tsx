@@ -263,7 +263,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
       <div className="absolute top-0 left-0 right-0 z-50" style={{ pointerEvents: 'auto' }}>
 
         <a
-          href="#"
+          href="src\components\NotebookPage.tsx"
           className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group no-underline"
           onClick={(e) => {
             e.preventDefault();
@@ -287,7 +287,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
                 fontWeight: 600
               }}
             >
-              Erocras
+              <a href="src\components\NotebookPage.tsx">Erocras</a>
 
             </p>
           </div>
@@ -316,7 +316,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
               ease: "easeInOut"
             }}
           >
-            Coming Soon on<br />12 August 2026
+            Coming Soon on<br />12 August, 2026
           </motion.p>
         </div>
 
@@ -397,7 +397,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
                 style={{
                   fontFamily: "'Caveat', cursive",
                   color: '#2d2d2d',
-                  fontSize: 'clamp(1.5rem, 4vw, 3rem)'
+                  fontSize: 'clamp(1.3rem, 3.6vw, 2.7rem)'
                 }}
               >
                 Enter school or personal email to join the waitlist
