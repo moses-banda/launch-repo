@@ -115,7 +115,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                             fontWeight: 600
                         }}
                     >
-                        Erocras
+                        <a href="src\components\NotebookPage.tsx">Erocras</a>
                     </p>
                 </div>
 
@@ -129,7 +129,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                     type="button"
                 >
                     <ArrowLeft className="w-5 h-5 text-[#4a4a4a]" />
-                    <span className="text-[#4a4a4a] text-lg font-medium">Back</span>
+                    <span className="text-[#4a4a4a] text-lg font-medium"><a href="src\components\NotebookPage.tsx">Back</a></span>
                 </motion.button>
             </div>
 
@@ -171,7 +171,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                             type="text"
                             value={nomineeName}
                             onChange={(e) => setNomineeName(e.target.value)}
-                            placeholder="      Sabrina Lin ..."
+                            placeholder="      Sabrina Awasthy ..."
                             className="w-full bg-transparent border-none outline-none text-xl md:text-2xl py-2 font-light"
                             style={{
                                 fontFamily: "'Caveat', cursive",
@@ -215,7 +215,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                                 color: '#991b1b'
                             }}
                         >
-                            In one or two sentences, why should they be nominated?
+                            In a or two sentences, why should they be nominated?
                         </span>
                         <textarea
                             value={reason}

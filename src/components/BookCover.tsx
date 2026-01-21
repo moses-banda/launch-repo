@@ -88,7 +88,7 @@ export function BookCover({ isFlipping }: BookCoverProps) {
                   filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'
                 }}
               >
-                Erocras
+                <a href="src\components\NotebookPage.tsx">Erocras</a>
               </h1>
               <div className="mt-8 flex flex-col items-center gap-4">
                 <div className="w-20 h-px bg-[#d4af37]/50" />
