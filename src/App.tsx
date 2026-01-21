@@ -51,11 +51,58 @@ export default function App() {
             exit={{ opacity: 0, scale: 1.1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="w-full h-full"
+            style={{ perspective: "1200px" }}
           >
-            {currentPage === 'home' && <NotebookPage onNavigate={navigateToPage} />}
-            {currentPage === 'waitlist' && <JoinWaitlist onNavigate={navigateToPage} />}
-            {currentPage === 'partners' && <Partners onNavigate={navigateToPage} />}
-            {currentPage === 'nomination' && <NominationPage onNavigate={navigateToPage} />}
+            <AnimatePresence mode="wait">
+              {currentPage === 'home' && (
+                <motion.div
+                  key="home"
+                  initial={{ opacity: 0, filter: "blur(20px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(20px)" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="w-full h-full absolute inset-0"
+                >
+                  <NotebookPage onNavigate={navigateToPage} />
+                </motion.div>
+              )}
+              {currentPage === 'waitlist' && (
+                <motion.div
+                  key="waitlist"
+                  initial={{ opacity: 0, filter: "blur(20px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(20px)" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="w-full h-full absolute inset-0"
+                >
+                  <JoinWaitlist onNavigate={navigateToPage} />
+                </motion.div>
+              )}
+              {currentPage === 'partners' && (
+                <motion.div
+                  key="partners"
+                  initial={{ opacity: 0, filter: "blur(20px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(20px)" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="w-full h-full absolute inset-0"
+                >
+                  <Partners onNavigate={navigateToPage} />
+                </motion.div>
+              )}
+              {currentPage === 'nomination' && (
+                <motion.div
+                  key="nomination"
+                  initial={{ opacity: 0, filter: "blur(20px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(20px)" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="w-full h-full absolute inset-0"
+                >
+                  <NominationPage onNavigate={navigateToPage} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>

@@ -48,6 +48,9 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
   const [quillPos, setQuillPos] = useState(0);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [displayedMessage, setDisplayedMessage] = useState('');
+  const [showPen, setShowPen] = useState(false);
+  const messageEndRef = useRef<HTMLSpanElement>(null);
 
   // Detect mobile keyboard visibility
   useEffect(() => {
@@ -94,6 +97,39 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
       }
     };
   }, []);
+
+  // Auto-redirect to home after 9.7 seconds on success
+  useEffect(() => {
+    if (isSubmitted) {
+      const timer = setTimeout(() => {
+        onNavigate('home');
+      }, 9700); // 9.7 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isSubmitted, onNavigate]);
+
+  // Typewriter effect for congratulatory message
+  useEffect(() => {
+    if (isSubmitted) {
+      const message = "We've added your name in the stars.";
+      setDisplayedMessage('');
+      setShowPen(true);
+
+      let i = 0;
+      const typeInterval = setInterval(() => {
+        if (i <= message.length) {
+          setDisplayedMessage(message.slice(0, i));
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          setTimeout(() => setShowPen(false), 500); // Hide pen after typing
+        }
+      }, 80); // Typing speed
+
+      return () => clearInterval(typeInterval);
+    }
+  }, [isSubmitted]);
 
   const updateQuillPosition = (text: string) => {
     const tempSpan = document.createElement('span');
@@ -463,23 +499,253 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
               exit={{ opacity: 0, scale: 0.9 }}
               className="w-full flex flex-col items-center justify-center text-center pointer-events-auto"
             >
-              <h2
-                className="mb-8 md:mb-12"
-                style={{
-                  fontFamily: "'Caveat', cursive",
-                  color: '#2d2d2d',
-                  fontSize: 'clamp(2rem, 5vw, 4rem)',
-                  textShadow: '0 0 20px rgba(255,215,0,0.3)'
-                }}
-              >
-                We've added your name in the stars.
-              </h2>
+              <div className="relative mb-8 md:mb-12">
+                <h2
+                  className="relative"
+                  style={{
+                    fontFamily: "'Caveat', cursive",
+                    color: '#2d2d2d',
+                    fontSize: 'clamp(2rem, 5vw, 4rem)',
+                    textShadow: '0 0 20px rgba(255,215,0,0.3)'
+                  }}
+                >
+                  {displayedMessage}
+                  <span ref={messageEndRef} />
+                </h2>
+
+                {/* 3D Pencil Animation */}
+                <AnimatePresence>
+                  {showPen && (
+                    <motion.div
+                      initial={{ opacity: 0, rotateY: -45, rotateX: 20 }}
+                      animate={{
+                        opacity: 1,
+                        rotateY: 0,
+                        rotateX: 0,
+                        rotateZ: [0, -2, 2, 0]
+                      }}
+                      exit={{ opacity: 0, rotateY: 45 }}
+                      transition={{
+                        rotateZ: {
+                          duration: 0.5,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }
+                      }}
+                      className="absolute pointer-events-none"
+                      style={{
+                        width: '150px',
+                        height: '150px',
+                        left: messageEndRef.current?.offsetLeft || 0,
+                        top: messageEndRef.current?.offsetTop || 0,
+                        marginTop: '-110px',
+                        marginLeft: '-50px',
+                        transformStyle: 'preserve-3d',
+                        perspective: '1000px',
+                        zIndex: 100
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: 'relative',
+                          width: '100%',
+                          height: '100%',
+                          transformStyle: 'preserve-3d',
+                          transform: 'rotateX(30deg) rotateY(-25deg) rotateZ(45deg)',
+                        }}
+                      >
+                        {/* Hexagonal Pencil Body - 6 sides for realistic 3D */}
+                        <div style={{
+                          position: 'absolute',
+                          width: '12px',
+                          height: '120px',
+                          transformStyle: 'preserve-3d',
+                          left: '50%',
+                          top: '15%',
+                          transformOrigin: 'center center'
+                        }}>
+                          {/* Create 6 faces of hexagonal pencil */}
+                          {[...Array(6)].map((_, i) => (
+                            <div
+                              key={i}
+                              style={{
+                                position: 'absolute',
+                                width: '100%',
+                                height: '100%',
+                                background: i % 2 === 0
+                                  ? 'linear-gradient(to bottom, #1a1a1a 0%, #2a2a2a 30%, #3a3a3a 50%, #2a2a2a 70%, #1a1a1a 100%)'
+                                  : 'linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 30%, #2a2a2a 50%, #1a1a1a 70%, #0a0a0a 100%)',
+                                transform: `rotateY(${i * 60}deg) translateZ(6px)`,
+                                borderLeft: '0.5px solid rgba(0,0,0,0.3)',
+                                borderRight: '0.5px solid rgba(255,255,255,0.1)',
+                                boxShadow: 'inset 0 0 2px rgba(255,255,255,0.1)'
+                              }}
+                            />
+                          ))}
+
+                          {/* Top hexagonal cap */}
+                          <div style={{
+                            position: 'absolute',
+                            width: '12px',
+                            height: '12px',
+                            background: 'radial-gradient(circle, #3a3a3a 0%, #1a1a1a 100%)',
+                            top: '-6px',
+                            left: '-50%',
+                            transform: 'rotateX(90deg)',
+                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+                          }} />
+                        </div>
+
+                        {/* Wooden Sharpened Tip - Cone Shape */}
+                        <div style={{
+                          position: 'absolute',
+                          width: '0',
+                          height: '0',
+                          left: '50%',
+                          top: 'calc(15% + 120px)',
+                          transformStyle: 'preserve-3d',
+                          zIndex: 5
+                        }}>
+                          {/* Create 6 triangular wooden faces for cone */}
+                          {[...Array(6)].map((_, i) => (
+                            <div
+                              key={`cone-${i}`}
+                              style={{
+                                position: 'absolute',
+                                width: '0',
+                                height: '0',
+                                borderLeft: '6px solid transparent',
+                                borderRight: '6px solid transparent',
+                                borderTop: i % 2 === 0
+                                  ? '35px solid #d2a679'  // Lighter wood
+                                  : '35px solid #c49a6c', // Darker wood
+                                transformOrigin: 'top center',
+                                transform: `rotateY(${i * 60}deg) rotateX(-90deg) translateZ(6px) translateY(-35px)`,
+                                filter: i === 0 || i === 1
+                                  ? 'brightness(1.1)'
+                                  : i === 3 || i === 4
+                                    ? 'brightness(0.7)'
+                                    : 'brightness(0.9)',
+                                boxShadow: 'inset 0 -2px 3px rgba(0,0,0,0.2)'
+                              }}
+                            />
+                          ))}
+
+                          {/* Wood grain detail lines on cone */}
+                          {[...Array(3)].map((_, i) => (
+                            <div
+                              key={`grain-${i}`}
+                              style={{
+                                position: 'absolute',
+                                width: '1px',
+                                height: `${25 - i * 5}px`,
+                                background: 'rgba(139, 90, 43, 0.3)',
+                                left: `${-4 + i * 3}px`,
+                                top: `${8 + i * 4}px`,
+                                transform: 'rotateZ(-2deg)',
+                                opacity: 0.4
+                              }}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Exposed Graphite Lead - The actual writing tip */}
+                        <div style={{
+                          position: 'absolute',
+                          width: '4px',
+                          height: '22px',
+                          left: 'calc(50% - 2px)',
+                          top: 'calc(15% + 133px)',
+                          background: 'linear-gradient(to bottom, #3a3a3a 0%, #2a2a2a 30%, #1a1a1a 60%, #000 100%)',
+                          clipPath: 'polygon(50% 100%, 100% 0%, 0% 0%)',
+                          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))',
+                          zIndex: 10,
+                          transformStyle: 'preserve-3d'
+                        }}>
+                          {/* Graphite shine/highlight */}
+                          <div style={{
+                            position: 'absolute',
+                            width: '1px',
+                            height: '50%',
+                            left: '30%',
+                            top: '10%',
+                            background: 'linear-gradient(to bottom, rgba(255,255,255,0.4), transparent)',
+                            filter: 'blur(0.3px)'
+                          }} />
+
+                          {/* Ultra-sharp writing point */}
+                          <div style={{
+                            position: 'absolute',
+                            width: '1.5px',
+                            height: '1.5px',
+                            background: '#000',
+                            borderRadius: '50%',
+                            bottom: '-0.5px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            boxShadow: '0 1px 2px rgba(0,0,0,0.9)'
+                          }} />
+                        </div>
+
+                        {/* Transition ring between body and sharpened area */}
+                        <div style={{
+                          position: 'absolute',
+                          width: '13px',
+                          height: '3px',
+                          left: 'calc(50% - 6.5px)',
+                          top: 'calc(15% + 119px)',
+                          background: 'linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a)',
+                          borderRadius: '50%',
+                          boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.5), 0 1px 1px rgba(255,255,255,0.1)',
+                          zIndex: 4
+                        }} />
+
+                        {/* Eraser (optional) */}
+                        <div style={{
+                          position: 'absolute',
+                          width: '14px',
+                          height: '18px',
+                          left: 'calc(50% - 7px)',
+                          top: 'calc(15% - 18px)',
+                          background: 'linear-gradient(135deg, #d4a5a5 0%, #ffb6c1 50%, #d4a5a5 100%)',
+                          borderRadius: '3px 3px 0 0',
+                          boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3)'
+                        }}>
+                          {/* Metal ferrule */}
+                          <div style={{
+                            position: 'absolute',
+                            width: '100%',
+                            height: '5px',
+                            bottom: '-5px',
+                            background: 'linear-gradient(to right, #a8a8a8, #e8e8e8, #a8a8a8)',
+                            borderRadius: '2px',
+                            boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.4)'
+                          }} />
+                        </div>
+
+                        {/* Ground shadow */}
+                        <div style={{
+                          position: 'absolute',
+                          width: '80px',
+                          height: '25px',
+                          left: 'calc(50% - 40px)',
+                          top: 'calc(15% + 165px)',
+                          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%)',
+                          borderRadius: '50%',
+                          transform: 'rotateX(90deg) translateZ(-10px)',
+                          filter: 'blur(4px)'
+                        }} />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <motion.button
                 onClick={() => onNavigate('home')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="mt-12 px-12 py-4 rounded-full shadow-lg transition-all duration-300 text-lg md:text-xl tracking-widest border border-[#b8962e]"
+                className="mt-12 px-8 md:px-12 py-3 md:py-4 rounded-full shadow-lg transition-all duration-300 text-base md:text-xl tracking-widest border border-[#b8962e] cursor-pointer"
                 style={{
                   fontFamily: 'Georgia, serif',
                   backgroundColor: '#d4af37',
@@ -487,7 +753,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
                   fontWeight: 'bold'
                 }}
               >
-                RETURN HOME
+                MORE STORIES
               </motion.button>
             </motion.div>
           )}

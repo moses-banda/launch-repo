@@ -223,19 +223,67 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         </div>
       </div>
 
-      {/* Sticky Note - Draggable Nominate Link */}
+      {/* Sticky Note Stack - Draggable Nominate Link */}
       <motion.div
         drag
         dragMomentum={false}
         dragElastic={0.1}
+        dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
         onDragStart={() => setIsDragging(true)}
         onDragEnd={() => setTimeout(() => setIsDragging(false), 100)}
-        whileDrag={{ scale: 1.08, cursor: 'grabbing' }}
-        className="sticky-note-container absolute bottom-20 right-6 md:bottom-24 md:right-20 lg:right-32 z-30 pointer-events-auto touch-none cursor-grab"
+        whileDrag={{ cursor: 'grabbing' }}
+        dragSnapToOrigin={false}
+        className="sticky-note-container absolute z-30 pointer-events-auto touch-none cursor-grab"
         style={{
-          boxShadow: '8px 12px 25px rgba(0,0,0,0.35), 4px 6px 10px rgba(0,0,0,0.2)'
+          bottom: 'clamp(11rem, 20vh, 13rem)',
+          right: 'clamp(2rem, 10vw, 6rem)',
+          boxShadow: '8px 12px 25px rgba(0,0,0,0.35), 4px 6px 10px rgba(0,0,0,0.2)',
+          willChange: 'transform'
         }}
       >
+        {/* Layer 3 - Bottom sticker (Pink) */}
+        <div
+          className="absolute"
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, #ffb3d9 0%, #ff85c0 100%)',
+            transform: 'rotate(-8deg) translateZ(10px) translateY(18px) translateX(-12px)',
+            boxShadow: '2px 3px 8px rgba(0,0,0,0.2)',
+            pointerEvents: 'none',
+            zIndex: -3
+          }}
+        />
+
+        {/* Layer 2 - Middle sticker (Blue) */}
+        <div
+          className="absolute"
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, #a8d8ff 0%, #7ec8ff 100%)',
+            transform: 'rotate(-5deg) translateZ(20px) translateY(12px) translateX(-8px)',
+            boxShadow: '2px 4px 10px rgba(0,0,0,0.22)',
+            pointerEvents: 'none',
+            zIndex: -2
+          }}
+        />
+
+        {/* Layer 1 - Second to top sticker (Green) */}
+        <div
+          className="absolute"
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, #b4f0a7 0%, #8ee67d 100%)',
+            transform: 'rotate(-3deg) translateZ(30px) translateY(6px) translateX(-4px)',
+            boxShadow: '2px 5px 12px rgba(0,0,0,0.24)',
+            pointerEvents: 'none',
+            zIndex: -1
+          }}
+        />
+
+        {/* Top Layer - Main yellow sticker (interactive) */}
         <div
           className="sticky-note pointer-events-auto"
           onClick={() => {
@@ -250,17 +298,43 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           <div className="arrow-icon">
             &rarr;
           </div>
+          {/* 4-Directional Drag Icon */}
           <div
-            className="draggable-label"
+            className="draggable-icon"
             style={{
-              fontFamily: "'Caveat', cursive",
-              fontSize: '0.75rem',
-              opacity: 0.5,
-              marginTop: '0.25rem',
-              textAlign: 'center'
+              marginTop: '0.5rem',
+              opacity: 0.4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '1px',
+              fontSize: '0.6rem',
+              color: '#1b1816',
+              userSelect: 'none'
             }}
           >
-            (draggable)
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ opacity: 0.6 }}
+            >
+              {/* Up arrow */}
+              <path d="M12 5v14M5 12l7-7 7 7" />
+              {/* Down arrow */}
+              <path d="M5 12l7 7 7-7" />
+              {/* Left arrow */}
+              <path d="M12 5H5m7 7H5" />
+              {/* Right arrow */}
+              <path d="M12 5h7m-7 7h7" />
+              {/* Center point */}
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+            </svg>
           </div>
         </div>
       </motion.div>

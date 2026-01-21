@@ -204,7 +204,7 @@ export function Fireworks({ className }: FireworksProps) {
         <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className || ''}`}>
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 w-full h-full cursor-pointer"
+                className="absolute inset-0 w-full h-full"
                 style={{ touchAction: 'none' }}
             />
         </div>

@@ -23,6 +23,10 @@
   justify-content: center;
   text-decoration: none;
   flex-shrink: 0;
+
+  /* 3D PERSPECTIVE BASE */
+  perspective: 1500px;
+  transform-style: preserve-3d;
 }
 
 .sticky-note {
@@ -30,36 +34,57 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fff176;
+  background: linear-gradient(135deg, #fff176 0%, #ffeb3b 100%);
   width: 100%;
   height: 100%;
   padding: 8%;
-  /* Reduced padding slightly */
   box-sizing: border-box;
   text-decoration: none;
 
-  /* INITIAL STATE */
-  transform: rotate(-3deg);
-  /* Enhanced 3D shadow effect */
+  /* ENHANCED 3D STATE */
+  transform: rotate(-3deg) translateZ(50px);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+
+  /* Dramatic layered 3D shadows for depth */
   box-shadow:
-    4px 6px 12px rgba(0, 0, 0, 0.25),
-    8px 12px 24px rgba(0, 0, 0, 0.15),
-    2px 2px 4px rgba(0, 0, 0, 0.1);
+    /* Close shadow for definition */
+    2px 2px 4px rgba(0, 0, 0, 0.2),
+    /* Mid-range shadow */
+    6px 8px 15px rgba(0, 0, 0, 0.25),
+    /* Far shadow for depth */
+    12px 16px 30px rgba(0, 0, 0, 0.2),
+    /* Very far shadow for dramatic effect */
+    20px 25px 45px rgba(0, 0, 0, 0.15),
+    /* Outer glow for pop */
+    0 0 60px rgba(255, 235, 59, 0.3);
+
   cursor: pointer;
 
-  /* DYNAMICS */
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  /* Smooth 3D transitions */
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .sticky-note-container:hover .sticky-note {
-  transform: rotate(0deg) scale(1.05);
-  box-shadow: 15px 20px 30px rgba(0, 0, 0, 0.15);
+  /* Subtle lift effect - much less dramatic */
+  transform: rotate(0deg) scale(1.08) translateZ(80px) translateY(-5px) rotateX(5deg) rotateY(-3deg);
+
+  /* Enhanced shadow when lifted - moderate effect */
+  box-shadow:
+    6px 6px 12px rgba(0, 0, 0, 0.15),
+    15px 18px 35px rgba(0, 0, 0, 0.2),
+    25px 30px 50px rgba(0, 0, 0, 0.18),
+    /* Subtle glow when hovering */
+    0 0 60px rgba(255, 235, 59, 0.4);
 }
 
 .sticky-note-container:active .sticky-note {
-  transform: rotate(0deg) scale(0.95);
-  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
-  transition: all 0.05s ease;
+  /* Disabled to prevent drag conflicts */
+  /* transform: rotate(0deg) scale(0.98) translateZ(20px); */
+  /* box-shadow:
+    1px 2px 3px rgba(0, 0, 0, 0.3),
+    3px 5px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.08s ease; */
 }
 
 .note-text {
