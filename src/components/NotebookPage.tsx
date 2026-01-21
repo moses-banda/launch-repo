@@ -83,7 +83,7 @@ const confessions: Confession[] = [
   {
     text: "Apparently the answer was in a DM thread. I wasn’t in it. No one told me.",
     tagline: "Support shouldn’t live in inboxes.",
-    userName: "Serpah"
+    userName: "Serpa"
   },
   {
     text: "I didn’t really know what to do. So I guessed and hoped it sounded right. I keep wondering if they noticed.",
@@ -108,7 +108,7 @@ const confessions: Confession[] = [
   {
     text: "Students keep asking the same things in different places. No one ever connects it. It feels like wasted effort.",
     tagline: "Patterns matter.",
-    userName: "Benny"
+    userName: "Austin"
   },
   {
     text: "Clubs try to reach students. Messages get lost. Important things fade.",
@@ -118,7 +118,7 @@ const confessions: Confession[] = [
 ];
 
 export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'waitlist' | 'partners' | 'nomination') => void }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => Math.floor(Math.random() * confessions.length));
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -138,6 +138,15 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
       setIsTransitioning(false);
     }, 600); // 600ms transition time
   };
+
+  // Auto-advance slides every 8 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      triggerTransition('next');
+    }, 8000);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, isTransitioning]);
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-[#2a2420] overflow-hidden">
@@ -482,7 +491,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           onClick={() => triggerTransition('prev')}
           whileHover={{ x: -6, scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="focus:outline-none opacity-60 hover:opacity-100 transition-opacity"
+          className="focus:outline-none opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
           aria-label="Previous story"
         >
           <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform rotate-180 text-[#2d2d2d]">
@@ -498,7 +507,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           onClick={() => triggerTransition('next')}
           whileHover={{ x: 6, scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="focus:outline-none"
+          className="focus:outline-none cursor-pointer"
           aria-label="Next story"
         >
           <motion.div
