@@ -103,7 +103,7 @@ const confessions: Confession[] = [
   {
     text: "I wasn’t lazy. I actually cared a lot. I just needed help at the wrong time.",
     tagline: "Some moments matter more than schedules.",
-    userName: "Mia"
+    userName: "Olivia"
   },
   {
     text: "Students keep asking the same things in different places. No one ever connects it. It feels like wasted effort.",
