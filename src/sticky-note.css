@@ -15,9 +15,9 @@
 }
 
 .sticky-note-container {
-  /* Reduced min size from 140px to 100px to avoid obscuring elements on small screens */
-  width: clamp(100px, 20vw, 220px);
-  height: clamp(100px, 20vw, 220px);
+  /* Slightly smaller size for better fit */
+  width: clamp(85px, 18vw, 180px);
+  height: clamp(85px, 18vw, 180px);
 
   display: flex;
   justify-content: center;
@@ -29,6 +29,7 @@
   transform-style: preserve-3d;
 }
 
+/* Container Query Setup for Perfect Scaling */
 .sticky-note {
   display: flex;
   flex-direction: column;
@@ -40,6 +41,9 @@
   padding: 8%;
   box-sizing: border-box;
   text-decoration: none;
+
+  /* Make this a query container */
+  container-type: inline-size;
 
   /* ENHANCED 3D STATE */
   transform: rotate(-3deg) translateZ(50px);
@@ -80,32 +84,38 @@
 
 .sticky-note-container:active .sticky-note {
   /* Disabled to prevent drag conflicts */
-  /* transform: rotate(0deg) scale(0.98) translateZ(20px); */
-  /* box-shadow:
-    1px 2px 3px rgba(0, 0, 0, 0.3),
-    3px 5px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.08s ease; */
 }
 
 .note-text {
   font-family: 'Caveat', cursive;
-  /* Reduced min font size for very small screens */
-  font-size: clamp(0.7rem, 1.3vw, 1.5rem);
+  /* PERFECT SCALING: 10cqw = 10% of container width */
+  font-size: 8.5cqw;
   color: #181111;
   line-height: 1.2;
   text-align: center;
-  margin-bottom: 2px;
+  margin-bottom: 2cqw;
   user-select: none;
   pointer-events: none;
+  width: 100%;
 }
 
 .arrow-icon {
-  font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+  /* PERFECT SCALING: 15cqw = 15% of container width */
+  font-size: 14cqw;
   color: #1b1816;
   font-weight: bold;
   animation: arrow-pulse 1.5s infinite ease-in-out;
   transition: transform 0.3s ease;
   line-height: 1;
+}
+
+.draggable-icon {
+  /* Ensure the SVG scales too if needed, though simpler via parent font-size or width */
+  width: 15cqw;
+  height: 15cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sticky-note-container:hover .arrow-icon {

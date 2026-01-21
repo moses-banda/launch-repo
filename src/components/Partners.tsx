@@ -15,32 +15,24 @@ interface PartnersProps {
 interface Logo {
   src: string;
   alt: string;
-  position: { top: string; left: string };
-  size: string;
   delay: number;
 }
 
-const logos: Logo[] = [
+const logos = [
   {
     src: logo1,
     alt: 'Partner 1',
-    position: { top: '20%', left: '15%' },
-    size: '120px',
-    delay: 0.3,
+    delay: 0.2,
   },
   {
     src: logo2,
     alt: 'Partner 2',
-    position: { top: '45%', left: '65%' },
-    size: '140px',
-    delay: 0.7,
+    delay: 0.5,
   },
   {
     src: logo3,
     alt: 'Partner 3',
-    position: { top: '65%', left: '25%' },
-    size: '130px',
-    delay: 1.1,
+    delay: 0.8,
   },
 ];
 
@@ -84,45 +76,19 @@ export function Partners({ onNavigate }: PartnersProps) {
           />
         </div>
 
-        <div className="absolute bottom-4 md:bottom-12 left-0 right-0 px-4 md:px-16 pl-[4.5rem] md:pl-32">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="border-t border-[#d4e4f7]/30 pt-4 md:pt-6">
-              <p
-                className="text-sm md:text-base opacity-50 mb-4 md:mb-6"
-                style={{
-                  fontFamily: "'Caveat', cursive",
-                  color: '#4a4a4a',
-                  lineHeight: '1.6'
-                }}
-              >
-                You are not alone in your career journey.
-              </p>
 
-              <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4 pointer-events-auto">
-                <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
-                  <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
-                  <XIcon className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
-                  <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
-                  <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-                <motion.a href="mailto:contact@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
-                  <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-                </motion.a>
-              </div>
-
-              <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
-                © 2025 Erocras
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+
+
+      {/* SVG Filters */}
+      <svg className="absolute w-0 h-0 pointer-events-none">
+        <defs>
+          <filter id="wiggle">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+          </filter>
+        </defs>
+      </svg>
 
       {/* Header Section */}
       <div className="absolute top-0 left-0 right-0 z-50">
@@ -235,87 +201,110 @@ export function Partners({ onNavigate }: PartnersProps) {
             </h2>
           </div>
 
-          {/* Logos with ink reveal animation */}
-          <div className="absolute inset-0">
+          {/* Logos with sketchy reveal animation */}
+          <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-16 md:gap-32 pointer-events-none">
             {logos.map((logo, index) => (
-              <InkRevealLogo key={index} logo={logo} />
+              <SketchyRevealLogo key={index} logo={logo} />
             ))}
           </div>
         </motion.div>
+      </div>
+
+      {/* Footer (Moved out for z-index accessibility) */}
+      <div className="absolute bottom-4 md:bottom-12 left-0 right-0 px-4 md:px-16 pl-[4.5rem] md:pl-32 z-30 pointer-events-auto">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4">
+            <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
+              <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+            </motion.a>
+            <motion.a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
+              <XIcon className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+            </motion.a>
+            <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
+              <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+            </motion.a>
+            <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
+              <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+            </motion.a>
+            <motion.a href="mailto:contact@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
+              <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
+            </motion.a>
+          </div>
+          <p className="text-xs md:text-sm opacity-40 text-center" style={{ fontFamily: "'Caveat', cursive", color: '#4a4a4a' }}>
+            © 2025 Erocras
+          </p>
+        </div>
       </div>
     </div>
   );
 }
 
-function InkRevealLogo({ logo }: { logo: Logo }) {
-  const [revealed, setRevealed] = useState(false);
+function SketchyRevealLogo({ logo }: { logo: Logo }) {
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setRevealed(true);
+      setIsPlaying(true);
     }, logo.delay * 1000);
-
     return () => clearTimeout(timer);
   }, [logo.delay]);
 
   return (
-    <div
-      className="absolute"
-      style={{
-        top: logo.position.top,
-        left: logo.position.left,
-        width: logo.size,
-        height: logo.size,
-      }}
-    >
-      {/* Ink spot overlay that reveals the logo */}
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        initial={{ scale: 0 }}
-        animate={{ scale: revealed ? 1 : 0 }}
-        transition={{ duration: 0.1 }}
-      >
-        {/* Dull ink spot */}
-        <motion.div
-          className="absolute inset-0 rounded-full"
+    <div className="relative w-32 h-32 md:w-48 md:h-48 flex items-center justify-center pointer-events-auto">
+      {/* Hand-drawn box animation */}
+      <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 100">
+        <motion.path
+          d="M 5,5 L 95,5 L 95,95 L 5,95 Z"
+          fill="transparent"
+          stroke="#4a4a4a"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={isPlaying ? { pathLength: 1, opacity: 0.6 } : { pathLength: 0, opacity: 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
-            background: 'radial-gradient(circle, #a8a8a8 0%, #d0d0d0 50%, transparent 70%)',
-            filter: 'blur(8px)',
+            filter: 'url(#wiggle)',
           }}
-          initial={{ opacity: 1, scale: 1.2 }}
-          animate={{ opacity: 0, scale: 1.5 }}
-          transition={{ duration: 2, ease: 'easeOut' }}
         />
+        {/* Second pass for sketchy look */}
+        <motion.path
+          d="M 6,4 L 96,6 L 94,94 L 4,96 Z"
+          fill="transparent"
+          stroke="#4a4a4a"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="4 2"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={isPlaying ? { pathLength: 1, opacity: 0.4 } : { pathLength: 0, opacity: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: "easeInOut" }}
+        />
+      </svg>
 
-        {/* Logo image - fades in as ink disappears */}
-        <motion.img
+      {/* Logo Stamp Animation */}
+      <motion.div
+        className="relative z-10 w-24 h-24 md:w-36 md:h-36 p-4"
+        initial={{ opacity: 0, scale: 1.5, rotate: 0 }}
+        animate={isPlaying ? {
+          opacity: 1,
+          scale: 1,
+          rotate: [0, -5, 0]
+        } : { opacity: 0, scale: 1.5 }}
+        transition={{
+          duration: 0.4,
+          delay: 0.6,
+          type: "spring",
+          stiffness: 200,
+          damping: 12
+        }}
+      >
+        <img
           src={logo.src}
           alt={logo.alt}
-          className="relative z-10 w-full h-full object-contain"
-          initial={{ opacity: 0, filter: 'grayscale(100%)' }}
-          animate={{
-            opacity: 1,
-            filter: 'grayscale(0%)',
-          }}
-          transition={{
-            duration: 2,
-            delay: 0.5,
-            ease: 'easeOut'
-          }}
-        />
-
-        {/* Ink texture effect */}
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 60%)',
-            mixBlendMode: 'multiply',
-          }}
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 1.5, delay: 0.3 }}
+          className="w-full h-full object-contain filter sepia-[0.3] contrast-[1.1]"
         />
       </motion.div>
     </div>
   );
 }
+

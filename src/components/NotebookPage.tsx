@@ -298,42 +298,35 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           <div className="arrow-icon">
             &rarr;
           </div>
-          {/* 4-Directional Drag Icon */}
+          {/* Hand Drag Gesture Icon */}
           <div
             className="draggable-icon"
             style={{
               marginTop: '0.5rem',
-              opacity: 0.4,
+              opacity: 0.5,
               display: 'flex',
-              flexDirection: 'column',
               alignItems: 'center',
-              gap: '1px',
-              fontSize: '0.6rem',
-              color: '#1b1816',
+              justifyContent: 'center',
               userSelect: 'none'
             }}
           >
             <svg
-              width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2.5"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              style={{ opacity: 0.6 }}
             >
-              {/* Up arrow */}
-              <path d="M12 5v14M5 12l7-7 7 7" />
-              {/* Down arrow */}
-              <path d="M5 12l7 7 7-7" />
-              {/* Left arrow */}
-              <path d="M12 5H5m7 7H5" />
-              {/* Right arrow */}
-              <path d="M12 5h7m-7 7h7" />
-              {/* Center point */}
-              <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+              {/* Hand with pointing finger */}
+              <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0" />
+              <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2" />
+              <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8" />
+              <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" />
+              {/* Swipe/drag arrow */}
+              <path d="M2 8 L6 8 M4 6 L6 8 L4 10" opacity="0.7" />
             </svg>
           </div>
         </div>
@@ -484,27 +477,40 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
       </div>
 
       {/* Navigation Arrows - Clear and Easy to Use */}
-      <div className="absolute top-1/2 -translate-y-1/2 z-30 pointer-events-auto" style={{ left: '13%' }}>
+      <div className="absolute top-1/2 -translate-y-1/2 z-30 pointer-events-auto pl-4" style={{ left: '5%' }}>
         <motion.button
           onClick={() => triggerTransition('prev')}
-          whileHover={{ scale: 1.2, x: -5 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/80 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+          whileHover={{ x: -6, scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="focus:outline-none opacity-60 hover:opacity-100 transition-opacity"
           aria-label="Previous story"
         >
-          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 text-[#2d2d2d]" />
+          <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform rotate-180 text-[#2d2d2d]">
+            <path d="M5 30 C 5 30, 25 10, 50 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="opacity-40" />
+            <path d="M5 30 L 25 50" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M5 30 L 55 30" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </svg>
         </motion.button>
       </div>
 
-      <div className="absolute top-1/2 -translate-y-1/2 z-30 pointer-events-auto" style={{ right: '13%' }}>
+      <div className="absolute top-1/2 -translate-y-1/2 z-30 pointer-events-auto pr-4" style={{ right: '5%' }}>
         <motion.button
           onClick={() => triggerTransition('next')}
-          whileHover={{ scale: 1.2, x: 5 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/80 shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+          whileHover={{ x: 6, scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="focus:outline-none"
           aria-label="Next story"
         >
-          <ChevronRight className="w-6 h-6 md:w-8 md:h-8 text-[#2d2d2d]" />
+          <motion.div
+            animate={{ x: [0, 5, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg width="50" height="40" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#8b0000]">
+              <path d="M10 30 Q 40 25, 70 30" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              <path d="M70 30 L 55 15" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              <path d="M70 30 L 60 45" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            </svg>
+          </motion.div>
         </motion.button>
       </div>
 
@@ -682,20 +688,34 @@ function PageContent({
         </div>
       </div>
 
-      <div className="h-20 mt-12 mb-6 md:mb-8 relative flex justify-center items-center">
+      <div className="h-24 mt-16 md:mt-20 mb-6 md:mb-8 relative flex justify-center items-center">
         {showTagline && (
-          <p
-            className="text-base md:text-lg leading-relaxed font-light"
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             style={{
-              fontFamily: "'Caveat', cursive",
-              color: '#7a7a7a',
-              lineHeight: '1.6',
-              fontWeight: 300
+              padding: '0.75rem 1.5rem',
+              borderLeft: '5px solid #daa520',
+              background: 'linear-gradient(to right, rgba(218, 165, 32, 0.15), rgba(218, 165, 32, 0.05), transparent)',
+              borderRadius: '0 4px 4px 0',
+              boxShadow: '-2px 0 8px rgba(218, 165, 32, 0.2)'
             }}
           >
-            {displayedTagline}
-            <span ref={tagEndRef} />
-          </p>
+            <p
+              className="text-lg md:text-xl lg:text-2xl leading-relaxed italic"
+              style={{
+                fontFamily: "'Caveat', cursive",
+                color: '#3a3a3a',
+                lineHeight: '1.8',
+                fontWeight: 700,
+                textShadow: '0 1px 3px rgba(218, 165, 32, 0.3)'
+              }}
+            >
+              {displayedTagline}
+              <span ref={tagEndRef} />
+            </p>
+          </motion.div>
         )}
       </div>
     </div>
