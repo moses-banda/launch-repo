@@ -143,7 +143,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
   useEffect(() => {
     const timer = setTimeout(() => {
       triggerTransition('next');
-    }, 8000);
+    }, 9000);
 
     return () => clearTimeout(timer);
   }, [currentIndex, isTransitioning]);
@@ -204,7 +204,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
                 lineHeight: '1.6'
               }}
             >
-              You are not alone in your career journey.
+              You are never alone in your career journey.
             </p>
 
             <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4">
