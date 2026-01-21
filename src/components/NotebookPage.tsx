@@ -38,12 +38,12 @@ const confessions: Confession[] = [
   {
     text: "They told me to read the guide again. I’ve read it three times already. No one has actually heard my answers.",
     tagline: "PDFs don’t ask follow-ups.",
-    userName: "Lin"
+    userName: "Chen"
   },
   {
     text: "I sent another LinkedIn message today. It says seen. That’s probably it.",
     tagline: "Careers shouldn’t depend on replies.",
-    userName: "Yi"
+    userName: "Wang"
   },
   {
     text: "My friend said I’ll be fine. They already have an offer. I don’t think they get it.",
@@ -58,7 +58,7 @@ const confessions: Confession[] = [
   {
     text: "It’s 2am and I’m back on the career center site. Everything says they support students. There’s literally no one to talk to.",
     tagline: "Career emergencies happen after office hours.",
-    userName: "Fernando"
+    userName: "Federico"
   },
   {
     text: "I practiced cases alone in my room. I kept stopping mid sentence. I don’t know if I sound confident or dumb.",
@@ -68,12 +68,12 @@ const confessions: Confession[] = [
   {
     text: "We were supposed to do a mock tonight. He said he’s already out downtown. My interview is still in the morning.",
     tagline: "Help shouldn’t depend on people showing up.",
-    userName: "Thomas"
+    userName: "De'Andre"
   },
   {
     text: "I’ve been googling interview prep since midnight. There are too many tabs open. None of this is helping.",
     tagline: "Urgency needs answers, not links.",
-    userName: "Abia"
+    userName: "Fabuzor"
   },
   {
     text: "People keep saying I should already know this. I don’t know when I was supposed to learn it. I feel behind for no reason.",
@@ -98,7 +98,7 @@ const confessions: Confession[] = [
   {
     text: "My school sends emails every day. I stopped opening them. I probably missed something important.",
     tagline: "Support shouldn’t live in spam.",
-    userName: "Nora"
+    userName: "Svetlana"
   },
   {
     text: "I wasn’t lazy. I actually cared a lot. I just needed help at the wrong time.",
