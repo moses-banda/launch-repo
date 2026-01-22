@@ -5,7 +5,7 @@ import { XIcon } from './XIcon';
 import { animate } from 'animejs';
 import { ScribbledButton } from './ScribbledButton';
 import { Fireworks } from './Fireworks';
-import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
+import logo from '@/assets/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 
 interface JoinWaitlistProps {
   onNavigate: (page: 'home' | 'waitlist' | 'partners' | 'nomination') => void;

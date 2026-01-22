@@ -5,8 +5,8 @@ import { XIcon } from './XIcon';
 import { ScribbledButton } from './ScribbledButton';
 import '../sticky-note.css';
 import { animate } from 'animejs';
-import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
-import profileIcon from 'figma:asset/8e273ee48e90346d297e8cee71c2504f5f00a434.png';
+import logo from '@/assets/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
+import profileIcon from '@/assets/8e273ee48e90346d297e8cee71c2504f5f00a434.png';
 
 interface Confession {
   text: string;
@@ -373,7 +373,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
                 fontWeight: 600
               }}
             >
-              <a href="src\components\NotebookPage.tsx">Erocras</a>
+              Erocras
             </p>
           </div>
         </a>
@@ -402,7 +402,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
               ease: "easeInOut"
             }}
           >
-            Coming Soon on<br />12 August 2026
+            Coming Soon on<br />12 August, 2026 2026
           </motion.p>
         </div>
 

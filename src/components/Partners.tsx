@@ -3,10 +3,10 @@ import { motion } from 'motion/react';
 import { Facebook, Linkedin, Instagram, Mail } from 'lucide-react';
 import { XIcon } from './XIcon';
 import { ScribbledButton } from './ScribbledButton';
-import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
-import logo1 from 'figma:asset/2493ae3a55ffa1f09c7665f0ff991fca2604c429.png';
-import logo2 from 'figma:asset/e46e10ea9945c66f04431ea64f2e2a74ec8d7e68.png';
-import logo3 from 'figma:asset/7b08baeb7d25f8a1bb32bb2f5e0e45b2fbd3fb62.png';
+import logo from '@/assets/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
+import logo1 from '@/assets/2493ae3a55ffa1f09c7665f0ff991fca2604c429.png';
+import logo2 from '@/assets/e46e10ea9945c66f04431ea64f2e2a74ec8d7e68.png';
+import logo3 from '@/assets/7b08baeb7d25f8a1bb32bb2f5e0e45b2fbd3fb62.png';
 
 interface PartnersProps {
   onNavigate: (page: 'home' | 'waitlist' | 'partners') => void;

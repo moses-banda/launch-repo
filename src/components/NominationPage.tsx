@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, ArrowLeft, Facebook, Linkedin, Instagram, Mail } from 'lucide-react';
 import { XIcon } from './XIcon';
-import logo from 'figma:asset/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
+import logo from '@/assets/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 
 interface NominationPageProps {
     onNavigate: (page: 'home' | 'waitlist' | 'partners' | 'nomination') => void;
