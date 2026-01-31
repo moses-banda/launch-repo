@@ -79,24 +79,7 @@ export function BookCover({ isFlipping }: BookCoverProps) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8, duration: 1 }}
             >
-              <h1
-                className="text-6xl md:text-8xl font-serif font-bold tracking-widest text-center"
-                style={{
-                  background: 'linear-gradient(to bottom, #f9f0b5 0%, #d4af37 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'
-                }}
-              >
-                <a href="src\components\NotebookPage.tsx">Erocras</a>
-              </h1>
-              <div className="mt-8 flex flex-col items-center gap-4">
-                <div className="w-20 h-px bg-[#d4af37]/50" />
-                <p className="text-xl md:text-2xl uppercase tracking-[0.4em] text-[#f4e8d0] opacity-80 text-center">
-                  The 911 for Careers
-                </p>
-                <div className="w-20 h-px bg-[#d4af37]/50" />
-              </div>
+
             </motion.div>
           </div>
 

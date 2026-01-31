@@ -350,32 +350,36 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         {/* Brand (Top Left) - Click to refresh */}
         <a
           href="#"
-          className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group no-underline"
+          className="absolute top-6 left-6 md:left-12 pointer-events-auto no-underline group"
           onClick={(e) => {
             e.preventDefault();
             window.location.reload();
           }}
         >
-          <motion.img
-            src={logo}
-            alt="Erocras Logo"
-            className="w-8 h-8 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-          />
-          <div className="flex flex-col">
-            <p
-              className="text-sm md:text-base tracking-widest group-hover:text-[#b91c1c] transition-colors"
-              style={{
-                fontFamily: 'Georgia, serif',
-                color: '#2d2d2d',
-                letterSpacing: '0.2em',
-                fontWeight: 600
-              }}
-            >
-              Erocras
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex items-center gap-3 bg-[#d8d4cf] border border-[#c5c0b8] px-5 py-2 rounded-full hover:scale-105 transition-all duration-300 shadow-sm"
+          >
+            <motion.img
+              src={logo}
+              alt="Erocras Logo"
+              className="w-8 h-8 rounded-full object-cover"
+              initial={{ rotate: 0 }}
+              whileHover={{ rotate: 5 }}
+            />
+            <div className="flex flex-col">
+              <h1
+                className="text-lg tracking-normal text-[#4a3b32] font-semibold"
+                style={{
+                  fontFamily: 'serif', // Using standard serif to match reference
+                }}
+              >
+                Erocras
+              </h1>
+            </div>
+          </motion.div>
         </a>
 
         {/* Date (Top Right - visible on all screens) */}
@@ -384,7 +388,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
             className="text-lg md:text-xl whitespace-nowrap text-right"
             style={{
               fontFamily: "'Caveat', cursive",
-              color: '#daa520', // Goldenrod
+              color: '#5e460aff', // Goldenrod
               fontWeight: 700,
               transform: 'rotate(-2deg)'
             }}
@@ -397,12 +401,12 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
               scale: [1, 1.02, 1]
             }}
             transition={{
-              duration: 3,
+              duration: 5,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           >
-            Coming Soon on<br />12 August, 2026 2026
+            Coming Soon on<br />12 August, 2026
           </motion.p>
         </div>
 
@@ -631,7 +635,7 @@ function PageContent({
     <div className="w-full relative">
       {/* Feather Quill / Pen */}
       <AnimatePresence>
-        {quillTarget && isAnimating && (
+        {false && quillTarget && isAnimating && (
           <motion.div
             ref={quillRef}
             initial={{ opacity: 0 }}
@@ -643,7 +647,7 @@ function PageContent({
               height: '100px',
               left: quillTarget === 'text' ? (textEndRef.current?.offsetLeft || 0) : (tagEndRef.current?.offsetLeft || 0),
               top: quillTarget === 'text' ? (textEndRef.current?.offsetTop || 0) : (tagEndRef.current?.offsetTop || 0),
-              marginTop: '-50px',
+              marginTop: '-90px',
               marginLeft: '-10px',
               transformOrigin: 'bottom left'
             }}

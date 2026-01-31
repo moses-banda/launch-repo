@@ -94,29 +94,33 @@ export function Partners({ onNavigate }: PartnersProps) {
       <div className="absolute top-0 left-0 right-0 z-50">
 
         <div
-          className="absolute top-6 left-16 md:left-24 flex items-center gap-2 pointer-events-auto pl-4 md:pl-0 cursor-pointer group"
+          className="absolute top-6 left-6 md:left-12 pointer-events-auto cursor-pointer group"
           onClick={() => onNavigate('home')}
         >
-          <motion.img
-            src={logo}
-            alt="Erocras Logo"
-            className="w-8 h-8 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-          />
-          <div className="flex flex-col">
-            <p
-              className="text-sm md:text-base tracking-widest group-hover:text-[#b91c1c] transition-colors"
-              style={{
-                fontFamily: 'Georgia, serif',
-                color: '#2d2d2d',
-                letterSpacing: '0.2em',
-                fontWeight: 600
-              }}
-            >
-              Erocras
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex items-center gap-3 bg-[#d8d4cf] border border-[#c5c0b8] px-5 py-2 rounded-full hover:scale-105 transition-all duration-300 shadow-sm"
+          >
+            <motion.img
+              src={logo}
+              alt="Erocras Logo"
+              className="w-8 h-8 rounded-full object-cover"
+              initial={{ rotate: 0 }}
+              whileHover={{ rotate: 5 }}
+            />
+            <div className="flex flex-col">
+              <h1
+                className="text-lg tracking-normal text-[#4a3b32] font-semibold"
+                style={{
+                  fontFamily: 'serif',
+                }}
+              >
+                Erocras
+              </h1>
+            </div>
+          </motion.div>
         </div>
 
         <div className="absolute top-7 right-6 md:right-12 pointer-events-auto pr-4 md:pr-0">
@@ -190,7 +194,7 @@ export function Partners({ onNavigate }: PartnersProps) {
         >
           {/* Title */}
           <div className="absolute top-0 left-0 right-0 px-8 text-center z-20">
-            <h2
+            <h1
               className="text-3xl md:text-4xl text-center"
               style={{
                 fontFamily: "'Caveat', cursive",
@@ -198,7 +202,7 @@ export function Partners({ onNavigate }: PartnersProps) {
               }}
             >
               Our Partners
-            </h2>
+            </h1>
           </div>
 
           {/* Logos with sketchy reveal animation */}
