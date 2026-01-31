@@ -15,19 +15,11 @@ export default function App() {
   const [isFlipping, setIsFlipping] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
+  // Book cover delay logic removed to skip brown book cover
   useEffect(() => {
     if (showIntro) return;
-
-    // Automatically flip the book after 2.5 seconds
-    const timer = setTimeout(() => {
-      setIsFlipping(true);
-      // Wait for flip animation to complete before showing notebook
-      setTimeout(() => {
-        setShowCover(false);
-      }, 1500);
-    }, 2500);
-
-    return () => clearTimeout(timer);
+    // Immediate transition handled in onComplete
+    setShowCover(false);
   }, [showIntro]);
 
   const navigateToPage = (page: Page) => {
@@ -39,7 +31,7 @@ export default function App() {
       <AnimatePresence>
 
         {showIntro ? (
-          <IntroVideo key="intro" onComplete={() => setShowIntro(false)} />
+          <IntroVideo key="intro" onComplete={() => { setShowIntro(false); setShowCover(false); }} />
         ) : (
           <>
             {showCover ? (

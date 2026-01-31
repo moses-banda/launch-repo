@@ -15,12 +15,7 @@ export function IntroVideo({ onComplete }: IntroVideoProps) {
     useEffect(() => {
         let timer: NodeJS.Timeout;
 
-        if (step === 1) {
-            // Play Part 1 for 2.5 seconds
-            timer = setTimeout(() => {
-                setStep(2);
-            }, 2500);
-        } else if (step === 2) {
+        if (step === 2) {
             // Play Part 2 for 2.5 seconds, totaling 5s
             timer = setTimeout(() => {
                 onComplete();
@@ -38,16 +33,49 @@ export function IntroVideo({ onComplete }: IntroVideoProps) {
         >
             <AnimatePresence mode="wait">
                 {step === 1 && (
-                    <motion.img
-                        key="part1"
-                        src={part1Gif}
-                        alt="Intro Part 1"
-                        className="w-full h-full object-cover"
+                    <motion.div
+                        key="part1-container"
+                        className="relative w-full h-full"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
-                    />
+                    >
+                        <img
+                            src={part1Gif}
+                            alt="Intro Part 1"
+                            className="w-full h-full object-cover"
+                        />
+
+                        {/* Overlay Button - Designer Refinement */}
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-10 transition-colors duration-1000 hover:bg-black/20">
+                            <motion.button
+                                initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ delay: 0.6, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={{
+                                    scale: 1.02,
+                                    letterSpacing: '0.35em',
+                                    borderColor: 'rgba(212, 175, 55, 0.8)',
+                                    backgroundColor: 'rgba(0,0,0,0.4)'
+                                }}
+                                whileTap={{ scale: 0.98, letterSpacing: '0.25em' }}
+                                onClick={() => setStep(2)}
+                                className="group relative px-8 py-3 md:px-14 md:py-5 border-[0.5px] md:border border-[#d4af37]/40 text-[#f3e5ab] tracking-[0.25em] md:tracking-[0.3em] uppercase backdrop-blur-md bg-black/10 overflow-hidden"
+                                style={{
+                                    fontFamily: '"Georgia", "Times New Roman", serif',
+                                    fontSize: 'clamp(0.8rem, 3vw, 1.5rem)',
+                                    textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                                    boxShadow: '0 20px 50px -10px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02)'
+                                }}
+                            >
+                                <span className="relative z-10 font-light drop-shadow-md">Who are we?</span>
+
+                                {/* Subtle shimmer effect */}
+                                <div className="absolute inset-0 -translate-x-[150%] group-hover:translate-x-[150%] bg-gradient-to-r from-transparent via-[#d4af37]/10 to-transparent transition-transform duration-1000 ease-in-out pointer-events-none" />
+                            </motion.button>
+                        </div>
+                    </motion.div>
                 )}
                 {step === 2 && (
                     <motion.img
