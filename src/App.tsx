@@ -10,10 +10,32 @@ import { IntroVideo } from './components/IntroVideo';
 type Page = 'home' | 'waitlist' | 'partners' | 'nomination';
 
 export default function App() {
+  // Helper to determine page from URL
+  const getPageFromPath = (): Page => {
+    // Remove leading/trailing slashes and decode if necessary
+    const path = window.location.pathname.replace(/^\/|\/$/g, '');
+    switch (path) {
+      case 'src/components/Partners.tsx': return 'partners';
+      case 'src/components/JoinWaitlist.tsx': return 'waitlist';
+      case 'src/components/NominationPage.tsx': return 'nomination';
+      case 'src/components/NotebookPage.tsx': return 'home';
+      default: return 'home';
+    }
+  };
+
   const [showIntro, setShowIntro] = useState(true);
   const [showCover, setShowCover] = useState(true);
   const [isFlipping, setIsFlipping] = useState(false);
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentPage, setCurrentPage] = useState<Page>(getPageFromPath);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPage(getPageFromPath());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Book cover delay logic removed to skip brown book cover
   useEffect(() => {
@@ -24,6 +46,14 @@ export default function App() {
 
   const navigateToPage = (page: Page) => {
     setCurrentPage(page);
+    let path = '/';
+    switch (page) {
+      case 'partners': path = '/src/components/Partners.tsx'; break;
+      case 'waitlist': path = '/src/components/JoinWaitlist.tsx'; break;
+      case 'nomination': path = '/src/components/NominationPage.tsx'; break;
+      case 'home': path = '/src/components/NotebookPage.tsx'; break;
+    }
+    window.history.pushState(null, '', path);
   };
 
   return (

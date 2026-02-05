@@ -3,30 +3,98 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Erocras - Vanderbilt Startups & Career Prep</title>
-  <meta name="description"
-    content="Erocras is the '911 for careers' at Vanderbilt. A student startup empowering interview prep, voice agents, and innovation. Connected with The Wondry, KTP, and Anchor Link." />
-  <meta name="keywords"
-    content="vanderbilt startups, moses banda vanderbilt, erocras, eloclas, 911 for careers, vanderbilt ktp, interview prep vanderbilt, voice agents vanderbilt, ai agent vanderbilt, vanderbilt innovation and entrepreneurship, vinse, vines, the wondry, anchor link" />
 
-  <!-- Open Graph -->
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Primary Meta Tags -->
+  <title>Erocras - The 911 for Careers</title>
+  <meta name="title" content="Erocras - The 911 for Careers" />
+  <meta name="description"
+    content="Erocras is the 911 for student careers at Vanderbilt University. A platform to share real stories, find support, and navigate the internship hunt without feeling alone." />
+  <meta name="author" content="Erocras" />
+  <link rel="canonical" href="https://erocras.com/" />
+
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://erocras.com/" />
-  <meta property="og:title" content="Erocras - Vanderbilt Startups & Career Prep" />
+  <meta property="og:title" content="Erocras - The 911 for Careers" />
   <meta property="og:description"
-    content="Erocras is the '911 for careers' at Vanderbilt. A student startup empowering interview prep, voice agents, and innovation." />
+    content="You are never alone in your career journey. Join the community at Vanderbilt University sharing real struggles and support." />
   <meta property="og:image" content="https://erocras.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
   <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:title" content="Erocras - Vanderbilt Startups & Career Prep" />
-  <meta property="twitter:description"
-    content="Erocras is the '911 for careers' at Vanderbilt. A student startup empowering interview prep, voice agents, and innovation." />
-  <meta property="twitter:image" content="https://erocras.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://erocras.com/" />
+  <meta name="twitter:title" content="Erocras - The 911 for Careers" />
+  <meta name="twitter:description"
+    content="The 911 for student careers. Real stories, real support. Join the waitlist." />
+  <meta name="twitter:image" content="https://erocras.com/twitter-image.jpg" />
+
+  <!-- Campus/University Context -->
+  <meta name="geo.region" content="TN-US" />
+  <meta name="geo.placename" content="Nashville" />
+
+  <!-- Additional SEO -->
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Structured Data for Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Erocras",
+    "url": "https://erocras.com/",
+    "logo": "https://erocras.com/logo.png",
+    "description": "Erocras is a student-first career support platform helping students navigate internship and job searching through community and shared experiences.",
+    "sameAs": [
+      "https://instagram.com/erocras",
+      "https://linkedin.com/company/erocras",
+      "https://x.com/erocras"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    }
+  }
+  </script>
+
+</head>
 
 <body>
+  <!-- Hidden SEO-friendly section titles (for crawlers) -->
+  <nav style="display: none;" aria-hidden="true">
+    <a href="/src/components/NominationPage.tsx">
+      <h2>Nominate Student</h2>
+    </a>
+    <p>Nominate a Vanderbilt student to be the voice of your experience.</p>
+
+    <a href="/src/components/JoinWaitlist.tsx">
+      <h2>Join the Waitlist</h2>
+    </a>
+    <p>Sign up now to get early access to the 911 for student careers.</p>
+
+    <a href="/src/components/Partners.tsx">
+      <h2>Our Partners</h2>
+    </a>
+    <p>Meet the partners helping students navigate their career paths.</p>
+
+    <a href="/src/components/NotebookPage.tsx">
+      <h2>Erocras Home</h2>
+    </a>
+    <p>Read anonymous career confessions and find solidarity in the job hunt.</p>
+  </nav>
+
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
