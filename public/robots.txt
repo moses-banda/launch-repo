@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://erocras.com/sitemap.xml
+Sitemap: https://erocras.net/sitemap.xml
