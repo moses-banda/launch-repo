@@ -277,7 +277,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
           >
             <motion.img
               src={logo}
-              alt="Erocras Logo"
+              alt="Erocras brand emblem"
               className="w-8 h-8 rounded-full object-cover"
               initial={{ rotate: 0 }}
               whileHover={{ rotate: 5 }}

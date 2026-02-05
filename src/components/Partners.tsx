@@ -21,17 +21,17 @@ interface Logo {
 const logos = [
   {
     src: logo1,
-    alt: 'Partner 1',
+    alt: 'Career development strategic partner',
     delay: 0.2,
   },
   {
     src: logo2,
-    alt: 'Partner 2',
+    alt: 'Vanderbilt student success partner',
     delay: 0.5,
   },
   {
     src: logo3,
-    alt: 'Partner 3',
+    alt: 'University innovation partner',
     delay: 0.8,
   },
 ];
@@ -105,7 +105,7 @@ export function Partners({ onNavigate }: PartnersProps) {
           >
             <motion.img
               src={logo}
-              alt="Erocras Logo"
+              alt="Erocras brand emblem"
               className="w-8 h-8 rounded-full object-cover"
               initial={{ rotate: 0 }}
               whileHover={{ rotate: 5 }}

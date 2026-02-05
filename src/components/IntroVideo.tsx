@@ -43,7 +43,7 @@ export function IntroVideo({ onComplete }: IntroVideoProps) {
                     >
                         <img
                             src={part1Gif}
-                            alt="Intro Part 1"
+                            alt="Student staring at a laptop in a dimly lit room, feeling overwhelmed"
                             className="w-full h-full object-cover"
                         />
 
@@ -81,7 +81,7 @@ export function IntroVideo({ onComplete }: IntroVideoProps) {
                     <motion.img
                         key="part2"
                         src={part2Gif}
-                        alt="Intro Part 2"
+                        alt="Erocras brand reveal with dynamic particle effects"
                         className="w-full h-full object-cover"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -100,7 +100,7 @@ export function IntroVideo({ onComplete }: IntroVideoProps) {
             >
                 <motion.img
                     src={logo}
-                    alt="Erocras Logo"
+                    alt="Erocras brand emblem"
                     className="w-8 h-8 rounded-full object-cover"
                 />
                 <h1

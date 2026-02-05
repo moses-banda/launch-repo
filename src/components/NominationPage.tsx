@@ -63,7 +63,7 @@ export function NominationPage({ onNavigate }: NominationPageProps) {
                 >
                     <motion.img
                         src={logo}
-                        alt="Erocras Logo"
+                        alt="Erocras brand emblem"
                         className="w-8 h-8 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
