@@ -18,7 +18,7 @@ const confessions: Confession[] = [
   {
     text: "My coffee chat just got canceled. It’s late and my interview is tomorrow morning. I don’t know what I’m supposed to do now.",
     tagline: "Career emergencies don’t wait for reschedules.",
-    userName: "Aaliyah"
+    userName: "Sarah"
   },
   {
     text: "Everyone said to ask older club members. The people who knew already graduated. I feel like I missed something important.",
@@ -28,12 +28,12 @@ const confessions: Confession[] = [
   {
     text: "The recruiter finally replied today. The deadline was yesterday. Cool.",
     tagline: "Timing decides outcomes.",
-    userName: "Eva"
+    userName: "Emmy"
   },
   {
     text: "I didn’t ask my question because it felt too basic. Now I’m scared it’ll come up tomorrow. I keep replaying it in my head.",
     tagline: "Ask anything. No judgment.",
-    userName: "Oluwafe"
+    userName: "Tayten"
   },
   {
     text: "They told me to read the guide again. I’ve read it three times already. No one has actually heard my answers.",
@@ -43,12 +43,12 @@ const confessions: Confession[] = [
   {
     text: "I sent another LinkedIn message today. It says seen. That’s probably it.",
     tagline: "Careers shouldn’t depend on replies.",
-    userName: "Wang"
+    userName: "Peter"
   },
   {
     text: "My friend said I’ll be fine. They already have an offer. I don’t think they get it.",
     tagline: "Reassurance isn’t preparation.",
-    userName: "Maria"
+    userName: "Mariya"
   },
   {
     text: "I needed help tonight. I didn’t know who to ask. So I asked no one.",
@@ -58,52 +58,52 @@ const confessions: Confession[] = [
   {
     text: "It’s 2am and I’m back on the career center site. Everything says they support students. There’s literally no one to talk to.",
     tagline: "Career emergencies happen after office hours.",
-    userName: "Federico"
+    userName: "Hernandez"
   },
   {
     text: "I practiced cases alone in my room. I kept stopping mid sentence. I don’t know if I sound confident or dumb.",
     tagline: "Interviews are spoken.",
-    userName: "Xiaodi"
+    userName: "Chan"
   },
   {
     text: "We were supposed to do a mock tonight. He said he’s already out downtown. My interview is still in the morning.",
     tagline: "Help shouldn’t depend on people showing up.",
-    userName: "De'Andre"
+    userName: "Wes"
   },
   {
     text: "I’ve been googling interview prep since midnight. There are too many tabs open. None of this is helping.",
     tagline: "Urgency needs answers, not links.",
-    userName: "Fabuzor"
+    userName: "Amiri"
   },
   {
     text: "People keep saying I should already know this. I don’t know when I was supposed to learn it. I feel behind for no reason.",
     tagline: "Access shouldn’t be assumed.",
-    userName: "Kunal"
+    userName: "Kumar"
   },
   {
     text: "Apparently the answer was in a DM thread. I wasn’t in it. No one told me.",
     tagline: "Support shouldn’t live in inboxes.",
-    userName: "Serpa"
+    userName: "Sabrin"
   },
   {
     text: "I didn’t really know what to do. So I guessed and hoped it sounded right. I keep wondering if they noticed.",
     tagline: "Guessing isn’t preparation.",
-    userName: "Tajun"
+    userName: "Kasparov"
   },
   {
     text: "The group chat has like 300 messages. My question is still unanswered. I’m not asking again.",
     tagline: "Broadcasting isn’t support.",
-    userName: "Manish"
+    userName: "Anand"
   },
   {
     text: "My school sends emails every day. I stopped opening them. I probably missed something important.",
     tagline: "Support shouldn’t live in spam.",
-    userName: "Svetlana"
+    userName: "Taimanov"
   },
   {
     text: "I wasn’t lazy. I actually cared a lot. I just needed help at the wrong time.",
     tagline: "Some moments matter more than schedules.",
-    userName: "Olivia"
+    userName: "Niemann"
   },
   {
     text: "Students keep asking the same things in different places. No one ever connects it. It feels like wasted effort.",
@@ -113,7 +113,7 @@ const confessions: Confession[] = [
   {
     text: "Clubs try to reach students. Messages get lost. Important things fade.",
     tagline: "If it matters, it shouldn’t be missed.",
-    userName: "Sam"
+    userName: "Samantha"
   }
 ];
 
@@ -143,7 +143,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
   useEffect(() => {
     const timer = setTimeout(() => {
       triggerTransition('next');
-    }, 9000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [currentIndex, isTransitioning]);
