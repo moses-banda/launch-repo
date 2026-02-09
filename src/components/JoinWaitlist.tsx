@@ -402,7 +402,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
                   fontSize: 'clamp(1.3rem, 3.6vw, 2.7rem)'
                 }}
               >
-                Enter school or personal email to join the waitlist
+                Join the waitlist(School email)
               </h1>
 
               <div
@@ -418,7 +418,7 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
                       value={email}
                       onChange={handleInputChange}
                       onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-                      placeholder="erocras@abc.edu"
+                      placeholder="hello@erocras.com"
                       className="w-full bg-transparent border-none outline-none py-2 relative pointer-events-auto z-10"
                       style={{
                         fontFamily: "'Caveat', cursive",
@@ -744,19 +744,17 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
       <div className="absolute bottom-4 md:bottom-12 left-0 right-0 px-4 md:px-16 pl-[4.5rem] md:pl-32 z-30 pointer-events-auto">
         <div className="max-w-2xl mx-auto text-center">
           <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4">
-            <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
-              <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-            </motion.a>
-            <motion.a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
+
+            <motion.a href="https://x.com/erocras" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
               <XIcon className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
             </motion.a>
-            <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
+            <motion.a href="https://www.linkedin.com/company/ero-cras" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
               <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
             </motion.a>
-            <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
+            <motion.a href="https://www.instagram.com/erocr1s/" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
               <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
             </motion.a>
-            <motion.a href="mailto:contact@erocras.net" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
+            <motion.a href="mailto:hello@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
               <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
             </motion.a>
           </div>

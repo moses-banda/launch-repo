@@ -7,113 +7,153 @@ import '../sticky-note.css';
 import { animate } from 'animejs';
 import logo from '@/assets/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
 import profileIcon from '@/assets/8e273ee48e90346d297e8cee71c2504f5f00a434.png';
+import emmyAvatar from '@/assets/Emmy.png';
+import jackAvatar from '@/assets/Jack.png';
+import linAvatar from '@/assets/Lin.png';
+import margaretAvatar from '@/assets/Margaret.png';
+import mariaAvatar from '@/assets/Maria.png';
+import oluwafeAvatar from '@/assets/Oluwafe.png';
+import sidAvatar from '@/assets/Sid.png';
+import yiAvatar from '@/assets/Yi.png';
+import coolKidAvatar from '@/assets/ChatGPT Image Feb 9, 2026, 03_40_14 PM.png';
+import sportyKidAvatar from '@/assets/ChatGPT Image Feb 9, 2026, 03_40_21 PM.png';
+import blondePlushAvatar from '@/assets/ChatGPT Image Feb 9, 2026, 03_43_54 PM.png';
 
 interface Confession {
   text: string;
   tagline: string;
   userName: string;
+  avatar: string;
+  isManifesto?: boolean;
 }
 
 const confessions: Confession[] = [
   {
+    isManifesto: true,
+    text: "Erocras is the 911 for student careers. We provide a safe, community-driven space to share the raw reality of the job hunt. From canceled interviews to silent recruiters, we're building a support system where authenticity replaces the highlight reel. Our mission is to ensure no student navigates their career journey alone, offering solidarity and real-world advice when it matters most.",
+    tagline: "Our Vision: Careers shouldn't be a solo mission.",
+    userName: "WHO WE ARE",
+    avatar: logo
+  },
+  {
     text: "My coffee chat just got canceled. It’s late and my interview is tomorrow morning. I don’t know what I’m supposed to do now.",
     tagline: "Career emergencies don’t wait for reschedules.",
-    userName: "Sarah"
+    userName: "Sarah",
+    avatar: margaretAvatar
   },
   {
     text: "Everyone said to ask older club members. The people who knew already graduated. I feel like I missed something important.",
     tagline: "Knowledge shouldn’t graduate.",
-    userName: "Roy"
+    userName: "Roy",
+    avatar: jackAvatar
   },
   {
     text: "The recruiter finally replied today. The deadline was yesterday. Cool.",
     tagline: "Timing decides outcomes.",
-    userName: "Emmy"
+    userName: "Emmy",
+    avatar: emmyAvatar
   },
   {
     text: "I didn’t ask my question because it felt too basic. Now I’m scared it’ll come up tomorrow. I keep replaying it in my head.",
     tagline: "Ask anything. No judgment.",
-    userName: "Tayten"
+    userName: "Tayten",
+    avatar: sidAvatar
   },
   {
     text: "They told me to read the guide again. I’ve read it three times already. No one has actually heard my answers.",
     tagline: "PDFs don’t ask follow-ups.",
-    userName: "Chen"
+    userName: "Chen",
+    avatar: linAvatar
   },
   {
     text: "I sent another LinkedIn message today. It says seen. That’s probably it.",
     tagline: "Careers shouldn’t depend on replies.",
-    userName: "Peter"
+    userName: "Peter",
+    avatar: sportyKidAvatar
   },
   {
     text: "My friend said I’ll be fine. They already have an offer. I don’t think they get it.",
     tagline: "Reassurance isn’t preparation.",
-    userName: "Mariya"
+    userName: "Mariya",
+    avatar: mariaAvatar
   },
   {
     text: "I needed help tonight. I didn’t know who to ask. So I asked no one.",
     tagline: "Silence isn’t a plan.",
-    userName: "Nguyen"
+    userName: "Nguyen",
+    avatar: yiAvatar
   },
   {
     text: "It’s 2am and I’m back on the career center site. Everything says they support students. There’s literally no one to talk to.",
     tagline: "Career emergencies happen after office hours.",
-    userName: "Hernandez"
+    userName: "Hernandez",
+    avatar: coolKidAvatar
   },
   {
     text: "I practiced cases alone in my room. I kept stopping mid sentence. I don’t know if I sound confident or dumb.",
     tagline: "Interviews are spoken.",
-    userName: "Chan"
+    userName: "Chan",
+    avatar: linAvatar
   },
   {
     text: "We were supposed to do a mock tonight. He said he’s already out downtown. My interview is still in the morning.",
     tagline: "Help shouldn’t depend on people showing up.",
-    userName: "Wes"
+    userName: "Wes",
+    avatar: coolKidAvatar
   },
   {
     text: "I’ve been googling interview prep since midnight. There are too many tabs open. None of this is helping.",
     tagline: "Urgency needs answers, not links.",
-    userName: "Amiri"
+    userName: "Amiri",
+    avatar: oluwafeAvatar
   },
   {
     text: "People keep saying I should already know this. I don’t know when I was supposed to learn it. I feel behind for no reason.",
     tagline: "Access shouldn’t be assumed.",
-    userName: "Kumar"
+    userName: "Kumar",
+    avatar: yiAvatar
   },
   {
     text: "Apparently the answer was in a DM thread. I wasn’t in it. No one told me.",
     tagline: "Support shouldn’t live in inboxes.",
-    userName: "Sabrin"
+    userName: "Sabrin",
+    avatar: blondePlushAvatar
   },
   {
     text: "I didn’t really know what to do. So I guessed and hoped it sounded right. I keep wondering if they noticed.",
     tagline: "Guessing isn’t preparation.",
-    userName: "Kasparov"
+    userName: "Kasparov",
+    avatar: sidAvatar
   },
   {
     text: "The group chat has like 300 messages. My question is still unanswered. I’m not asking again.",
     tagline: "Broadcasting isn’t support.",
-    userName: "Anand"
+    userName: "Anand",
+    avatar: jackAvatar
   },
   {
     text: "My school sends emails every day. I stopped opening them. I probably missed something important.",
     tagline: "Support shouldn’t live in spam.",
-    userName: "Taimanov"
+    userName: "Taimanov",
+    avatar: sportyKidAvatar
   },
   {
     text: "I wasn’t lazy. I actually cared a lot. I just needed help at the wrong time.",
     tagline: "Some moments matter more than schedules.",
-    userName: "Niemann"
+    userName: "Niemann",
+    avatar: jackAvatar
   },
   {
     text: "Students keep asking the same things in different places. No one ever connects it. It feels like wasted effort.",
     tagline: "Patterns matter.",
-    userName: "Austin"
+    userName: "Austin",
+    avatar: coolKidAvatar
   },
   {
     text: "Clubs try to reach students. Messages get lost. Important things fade.",
     tagline: "If it matters, it shouldn’t be missed.",
-    userName: "Samantha"
+    userName: "Samantha",
+    avatar: blondePlushAvatar
   }
 ];
 
@@ -208,19 +248,17 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
             </p>
 
             <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 md:mb-4">
-              <motion.a href="https://facebook.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Facebook">
-                <Facebook className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
-              </motion.a>
-              <motion.a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
+
+              <motion.a href="https://x.com/erocras" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="X (formerly Twitter)">
                 <XIcon className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
               </motion.a>
-              <motion.a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
+              <motion.a href="https://www.linkedin.com/company/ero-cras" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="LinkedIn">
                 <Linkedin className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
               </motion.a>
-              <motion.a href="https://instagram.com" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
+              <motion.a href="https://www.instagram.com/erocr1s/" target="_blank" rel="noopener noreferrer" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Instagram">
                 <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
               </motion.a>
-              <motion.a href="mailto:contact@erocras.net" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
+              <motion.a href="mailto:hello@erocras.com" whileHover={{ rotate: [0, 10, -10, 0] }} className="opacity-40 hover:opacity-100 transition-opacity" aria-label="Email">
                 <Mail className="w-5 h-5 md:w-6 md:h-6" style={{ color: '#4a4a4a' }} />
               </motion.a>
             </div>
@@ -302,7 +340,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
           }}
         >
           <div className="note-text">
-            Nominate a Vanderbilt Student<br />to be the voice of your experience.
+            Nominate a Vanderbilt Student<br />as the voice of your experience.
           </div>
           <div className="arrow-icon">
             &rarr;
@@ -350,7 +388,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
         {/* Brand (Top Left) - Click to refresh */}
         <a
           href="#"
-          className="absolute top-6 left-6 md:left-12 pointer-events-auto no-underline group"
+          className="absolute top-6 left-10 md:left-20 pointer-events-auto no-underline group"
           onClick={(e) => {
             e.preventDefault();
             window.location.reload();
@@ -371,9 +409,9 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
             />
             <div className="flex flex-col">
               <h1
-                className="text-lg tracking-normal text-[#4a3b32] font-semibold"
+                className="text-lg tracking-normal text-[#4a3b32] font-bold"
                 style={{
-                  fontFamily: 'serif', // Using standard serif to match reference
+                  fontFamily: '"Playfair Display", serif',
                 }}
               >
                 Erocras
@@ -460,7 +498,7 @@ export function NotebookPage({ onNavigate }: { onNavigate: (page: 'home' | 'wait
                   delay: 0.5
                 }}
               >
-                <ScribbledButton text="Our Partners" onClick={() => onNavigate('partners')} />
+                <ScribbledButton text="Our Partners" onClick={() => onNavigate('waitlist')} />
               </motion.div>
             </a>
           </div>
@@ -669,20 +707,22 @@ function PageContent({
           className="flex items-center gap-3 mb-6 md:mb-8"
         >
           <img
-            src={profileIcon}
+            src={confession.avatar}
             alt={confession.userName}
             className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-[#d4e4f7]/40"
           />
-          <p
-            className="text-base md:text-lg opacity-70"
-            style={{
-              fontFamily: "'Caveat', cursive",
-              color: '#6a6a6a',
-              fontWeight: 400,
-            }}
-          >
-            {confession.userName}
-          </p>
+          {confession.userName && (
+            <p
+              className="text-base md:text-lg opacity-70"
+              style={{
+                fontFamily: "'Caveat', cursive",
+                color: '#6a6a6a',
+                fontWeight: 400,
+              }}
+            >
+              {confession.userName}
+            </p>
+          )}
         </motion.div>
 
         <div className="relative w-full text-justify max-w-5xl mx-auto mt-12 md:mt-16" style={{ paddingLeft: '22%', paddingRight: '22%' }}>
