@@ -208,11 +208,29 @@ export function JoinWaitlist({ onNavigate }: JoinWaitlistProps) {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (email && email.includes('@')) {
-      // In a real app, submit to backend here
-      console.log('Submitted:', email);
-      setIsSubmitted(true);
+      try {
+        const response = await fetch('https://backend-fastapi-server-gi9d.onrender.com/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        });
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        if (response.ok) {
+          // Success! Trigger the success state which handles the animation/transition
+          setIsSubmitted(true);
+        } else {
+          // Handle error (e.g. duplicate email)
+          alert("Error: " + (data.detail || "An error occurred"));
+        }
+      } catch (error) {
+        console.error("Connection failed:", error);
+        alert("Could not connect to the backend server.");
+      }
     }
   };
 
