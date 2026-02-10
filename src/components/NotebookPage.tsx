@@ -29,13 +29,6 @@ interface Confession {
 
 const confessions: Confession[] = [
   {
-    isManifesto: true,
-    text: "Erocras is the 911 for student careers. We provide a safe, community-driven space to share the raw reality of the job hunt. From canceled interviews to silent recruiters, we're building a support system where authenticity replaces the highlight reel. Our mission is to ensure no student navigates their career journey alone, offering solidarity and real-world advice when it matters most.",
-    tagline: "Our Vision: Careers shouldn't be a solo mission.",
-    userName: "WHO WE ARE",
-    avatar: logo
-  },
-  {
     text: "My coffee chat just got canceled. It’s late and my interview is tomorrow morning. I don’t know what I’m supposed to do now.",
     tagline: "Career emergencies don’t wait for reschedules.",
     userName: "Sarah",
