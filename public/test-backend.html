@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Connection Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .test-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .success {
+            background: rgba(34, 197, 94, 0.3);
+            border: 2px solid #22c55e;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid #ef4444;
+        }
+
+        .info {
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid #3b82f6;
+        }
+
+        .url-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔌 Backend Connection Tester</h1>
+
+        <div class="url-display">
+            <strong>Backend URL:</strong> https://backendfastapiserver-production-287a.up.railway.app
+        </div>
+
+        <div class="test-section">
+            <h2>Test 1: Root Endpoint</h2>
+            <button onclick="testRoot()">Test GET /</button>
+            <div id="root-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 2: Docs Endpoint</h2>
+            <button onclick="testDocs()">Test GET /docs</button>
+            <div id="docs-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 3: Waitlist Endpoint</h2>
+            <input type="email" id="test-email" placeholder="test@example.com" value="test@vanderbilt.edu">
+            <button onclick="testWaitlist()">Test POST /waitlist</button>
+            <div id="waitlist-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 4: CORS Check</h2>
+            <button onclick="testCORS()">Check CORS Headers</button>
+            <div id="cors-result"></div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'https://backendfastapiserver-production-287a.up.railway.app';
+
+        function displayResult(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.className = `result ${type}`;
+            element.textContent = message;
+        }
+
+        async function testRoot() {
+            displayResult('root-result', 'Testing...', 'info');
+            try {
+                const response = await fetch(BASE_URL + '/', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+
+                const text = await response.text();
+                const result = `Status: ${response.status} ${response.statusText}\n\nResponse:\n${text}`;
+
+                displayResult('root-result', result, response.ok ? 'success' : 'error');
+            } catch (error) {
+                displayResult('root-result', `Error: ${error.message}\n\nThis usually means:\n- Server is down\n- CORS is blocking the request\n- Network error`, 'error');
+            }
+        }
+
+        async function testDocs() {
+            displayResult('docs-result', 'Testing...', 'info');
+            try {
+                const response = await fetch(BASE_URL + '/docs', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+
+                const result = `Status: ${response.status} ${response.statusText}\n\nIf 200, FastAPI docs are accessible!`;
+                displayResult('docs-result', result, response.ok ? 'success' : 'error');
+            } catch (error) {
+                displayResult('docs-result', `Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testWaitlist() {
+            const email = document.getElementById('test-email').value;
+            if (!email) {
+                displayResult('waitlist-result', 'Please enter an email address', 'error');
+                return;
+            }
+
+            displayResult('waitlist-result', 'Testing...', 'info');
+            try {
+                const response = await fetch(BASE_URL + '/waitlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+                const result = `Status: ${response.status} ${response.statusText}\n\nResponse:\n${JSON.stringify(data, null, 2)}`;
+
+                displayResult('waitlist-result', result, response.ok ? 'success' : 'error');
+            } catch (error) {
+                displayResult('waitlist-result', `Error: ${error.message}\n\nFull error: ${error}`, 'error');
+            }
+        }
+
+        async function testCORS() {
+            displayResult('cors-result', 'Testing CORS...', 'info');
+            try {
+                const response = await fetch(BASE_URL + '/', {
+                    method: 'OPTIONS'
+                });
+
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers')
+                };
+
+                const result = `CORS Headers:\n${JSON.stringify(corsHeaders, null, 2)}\n\nIf all are null, CORS is NOT configured!`;
+                displayResult('cors-result', result, corsHeaders['Access-Control-Allow-Origin'] ? 'success' : 'error');
+            } catch (error) {
+                displayResult('cors-result', `Error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+
+</html>

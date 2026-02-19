@@ -1,40 +1,12 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Facebook, Linkedin, Instagram, Mail } from 'lucide-react';
 import { XIcon } from './XIcon';
 import { ScribbledButton } from './ScribbledButton';
 import logo from '@/assets/bb1b0d23f9aefeb9ab0d7457ceff54537cc56471.png';
-import logo1 from '@/assets/2493ae3a55ffa1f09c7665f0ff991fca2604c429.png';
-import logo2 from '@/assets/e46e10ea9945c66f04431ea64f2e2a74ec8d7e68.png';
-import logo3 from '@/assets/7b08baeb7d25f8a1bb32bb2f5e0e45b2fbd3fb62.png';
 
 interface PartnersProps {
   onNavigate: (page: 'home' | 'waitlist' | 'partners') => void;
 }
-
-interface Logo {
-  src: string;
-  alt: string;
-  delay: number;
-}
-
-const logos = [
-  {
-    src: logo1,
-    alt: 'Career development strategic partner',
-    delay: 0.2,
-  },
-  {
-    src: logo2,
-    alt: 'Vanderbilt student success partner',
-    delay: 0.5,
-  },
-  {
-    src: logo3,
-    alt: 'University innovation partner',
-    delay: 0.8,
-  },
-];
 
 export function Partners({ onNavigate }: PartnersProps) {
   return (
@@ -205,12 +177,7 @@ export function Partners({ onNavigate }: PartnersProps) {
             </h1>
           </div>
 
-          {/* Logos with sketchy reveal animation */}
-          <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-16 md:gap-32 pointer-events-none">
-            {logos.map((logo, index) => (
-              <SketchyRevealLogo key={index} logo={logo} />
-            ))}
-          </div>
+
         </motion.div>
       </div>
 
@@ -240,73 +207,3 @@ export function Partners({ onNavigate }: PartnersProps) {
     </div>
   );
 }
-
-function SketchyRevealLogo({ logo }: { logo: Logo }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsPlaying(true);
-    }, logo.delay * 1000);
-    return () => clearTimeout(timer);
-  }, [logo.delay]);
-
-  return (
-    <div className="relative w-32 h-32 md:w-48 md:h-48 flex items-center justify-center pointer-events-auto">
-      {/* Hand-drawn box animation */}
-      <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 100">
-        <motion.path
-          d="M 5,5 L 95,5 L 95,95 L 5,95 Z"
-          fill="transparent"
-          stroke="#4a4a4a"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isPlaying ? { pathLength: 1, opacity: 0.6 } : { pathLength: 0, opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          style={{
-            filter: 'url(#wiggle)',
-          }}
-        />
-        {/* Second pass for sketchy look */}
-        <motion.path
-          d="M 6,4 L 96,6 L 94,94 L 4,96 Z"
-          fill="transparent"
-          stroke="#4a4a4a"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeDasharray="4 2"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isPlaying ? { pathLength: 1, opacity: 0.4 } : { pathLength: 0, opacity: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: "easeInOut" }}
-        />
-      </svg>
-
-      {/* Logo Stamp Animation */}
-      <motion.div
-        className="relative z-10 w-24 h-24 md:w-36 md:h-36 p-4"
-        initial={{ opacity: 0, scale: 1.5, rotate: 0 }}
-        animate={isPlaying ? {
-          opacity: 1,
-          scale: 1,
-          rotate: [0, -5, 0]
-        } : { opacity: 0, scale: 1.5 }}
-        transition={{
-          duration: 0.4,
-          delay: 0.6,
-          type: "spring",
-          stiffness: 200,
-          damping: 12
-        }}
-      >
-        <img
-          src={logo.src}
-          alt={logo.alt}
-          className="w-full h-full object-contain filter sepia-[0.3] contrast-[1.1]"
-        />
-      </motion.div>
-    </div>
-  );
-}
-

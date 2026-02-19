@@ -121,7 +121,7 @@ export function Fireworks({ className }: FireworksProps) {
             }
 
             // Random launch
-            if (Math.random() < 0.08) { // Increased frequency significantly
+            if (Math.random() < 0.09) { // Increased frequency significantly
                 launchRocket();
             }
 
